@@ -1,0 +1,29 @@
+				APIs
+
+USERROUTE
+
+        USERROUTE  -> POST(LOGINUSER,REGISTERUSER)  /loginuser, /registeruser
+
+	RIDEROUTE  -> POST(ADDSERVICE),  GET(GETSERVICE)  /addservice , /getservice
+
+	USERRIDEROUTE -> POST(USER/ADDRIDE), GET(USER/GETRIDE), DELETE(USER/CANCELRIDE) /user/addride , /user/getride
+
+
+DRIVERROUTE 
+
+	DRIVERROUTE -> POST(REGISTERDRIVER, LOGINDRIVER) /registerdriver, /logindriver
+
+
+			ROUTEs
+/  -> homelayout
+/ -> ride
+/userregister 
+/userlogin
+/driverregister
+/driverlogin
+/map 
+/myrides
+/userprofile
+/driverprofile
+
+
