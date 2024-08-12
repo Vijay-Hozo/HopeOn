@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import Button from '../assets/Button';
+import axios from 'axios';
+import data from '../assets/data.json';  // Importing the JSON data
 import { useDispatch } from 'react-redux';
 import { addRide } from '../Redux/createSlice';
-import Button from '../assets/Button';
+import image from "../assets/Image/BikeImag.jpg";
+
 
 const geocodeLocation = async (location) => {
-  if (location.toLowerCase() === 'coimbatore') return { lat: 11.0168, lng: 76.9558 };
-  if (location.toLowerCase() === 'chennai') return { lat: 13.0827, lng: 80.2707 };
-  if (location.toLowerCase() === 'bangalore') return { lat: 12.9716, lng: 77.5946 };
-  if (location.toLowerCase() === 'junction') return { lat: 10.9640914, lng: 76.9886998};
-  return { lat: 0, lng: 0 }; 
+  const zone = data.zones.find(
+    (zone) => zone.zone_name.toLowerCase() === location.toLowerCase()
+  );
+
+  if (zone) {
+    return { lat: zone.latitude, lng: zone.longitude };
+  } else {
+    return { lat: 0, lng: 0 }; // Default coordinates if location is not found
+  }
 };
 
 const haversineDistance = (coords1, coords2) => {
@@ -33,10 +41,10 @@ const haversineDistance = (coords1, coords2) => {
 const Ride = () => {
   const [departure, setDeparture] = useState('');
   const [arrival, setArrival] = useState('');
-  const [departureCoords, setDepartureCoords] = useState(null);
-  const [arrivalCoords, setArrivalCoords] = useState(null);
   const [distance, setDistance] = useState(null);
-  const [fare,setFare] = useState(null);
+  const [fare, setFare] = useState(null);
+  const [passengers, setPassengers] = useState(1);
+  const [date, newDate] = useState(new Date().toISOString().split('T')[0]);
   const dispatch = useDispatch();
 
   const handlePlace = async () => {
@@ -44,70 +52,96 @@ const Ride = () => {
       const depCoords = await geocodeLocation(departure);
       const arrCoords = await geocodeLocation(arrival);
 
-      setDepartureCoords(depCoords);
-      setArrivalCoords(arrCoords);
-
       if (depCoords && arrCoords) {
         const dist = haversineDistance(depCoords, arrCoords);
         setDistance(dist.toFixed(2)); // Distance in kilometers
-      }
 
-      if(distance < 100){
-        setFare(100);
-      }
-      else if(distance > 100){
-        setFare(200);
-      }
+        let calculatedFare = 100;
+        if (dist > 100) {
+          calculatedFare = 200;
+        }
+        setFare(calculatedFare);
 
-      const newRide = {
-        departure,
-        departureCoords: depCoords,
-        arrival,
-        arrivalCoords: arrCoords,
-      };
+        const newRide = {
+          departure,
+          departureCoords: depCoords,
+          arrival,
+          arrivalCoords: arrCoords,
+          passengers,
+          date,
+        };
 
-      dispatch(addRide(newRide));
-      console.log("Ride Placed", newRide);
+        dispatch(addRide(newRide));
+        console.log("Ride Placed", newRide);
+
+        const payload = {
+          departure,
+          arrival,
+          passengers,
+          date,
+        };
+
+        const res = await axios.post("http://localhost:3000/user/addride", payload, {
+          headers: {
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YWRlY2JiN2NhODFmYjExMDA3ZTllNyIsImlhdCI6MTcyMzI2MjM0MywiZXhwIjoxNzIzMjkxMTQzfQ.WP0xUMNeKCNCzJmog-yvX1lZmToY4nNa8QXFfXdWcso"
+          }
+        });
+        console.log(res);
+      }
     } catch (error) {
       console.error("Geocoding error:", error);
     }
   };
 
   return (
-    <div className='flex flex-col justify-center items-center gap-3 text-white bg-gradient-to-b from-background-primary to-background-secondary w-[520px] h-[770px] rounded-r-3xl'>
-      <h1 className='text-2xl font-bold'>Place Ride</h1>
-      <div>
-        <div className='mb-3 flex flex-col gap-4 text-2xl rounded-xl'>
-          <label>From </label>
-          <input 
-            type="text"
-            placeholder='Departure'
-            value={departure}
-            className='rounded-xl p-2  text-black'
-            onChange={(e) => setDeparture(e.target.value)}
-          />
-        </div>
-        <div className='mb-3 flex flex-col gap-2 text-2xl rounded-xl'>
-          <h1>To</h1>
-          <input 
-            type="text"
-            placeholder='Arrival'
-            value={arrival}
-            className='rounded-xl p-2 text-black'
-            onChange={(e) => setArrival(e.target.value)}
-          />
-        </div>
+    <div className="relative flex justify-center items-center">
+      <img src={image} alt="" className="w-full h-[800px] object-cover" />
+      <div className="absolute bg-slate-400 flex flex-col w-[400px] h-[600px] top-10 items-center justify-center gap-6 bg-gradient-to-b from-background-primary to-background-secondary p-8  rounded-3xl">
+        <h1 className="text-2xl font-semibold text-white">Place Ride</h1>
+        <form className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col gap-2">
+            <label className="text-white text-lg">From Location</label>
+            <input
+              type="text"
+              placeholder="Departure"
+              value={departure}
+              className="rounded-xl p-3 text-black focus:outline-none"
+              onChange={(e) => setDeparture(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-white text-lg">To Location</label>
+            <input
+              type="text"
+              placeholder="Arrival"
+              value={arrival}
+              className="rounded-xl p-3 text-black focus:outline-none"
+              onChange={(e) => setArrival(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-white text-lg">Number of Passengers</label>
+            <input
+              type="number"
+              value={passengers}
+              className="rounded-xl p-3 text-black focus:outline-none"
+              onChange={(e) => setPassengers(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-white text-lg">Date</label>
+            <input
+              type="date"
+              value={date}
+              className="rounded-xl p-3 text-black focus:outline-none"
+              onChange={(e) => newDate(e.target.value)}
+            />
+          </div>
+          <Button onClick={handlePlace} className="mt-4 ">
+            PLACE RIDE
+          </Button>
+        </form>
       </div>
-      <div>
-          <Button>PLACE RIDE</Button>
-      </div>
-
-      {distance !== null && (
-        <div className='mt-4'>
-          <h2>Distance: {distance} km</h2>
-          <h2>Fare:{fare}</h2>
-        </div>
-      )}
     </div>
   );
 };

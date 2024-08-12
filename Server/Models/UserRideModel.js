@@ -9,10 +9,6 @@ const UserRideSchema = new mongoose.Schema ({
         type : String,
         required : true
     },
-    ride_date : {
-        type : Date,
-        required : true
-    },
     departure : {
         type : String,
         required : true
@@ -20,7 +16,15 @@ const UserRideSchema = new mongoose.Schema ({
     arrival : {
         type : String,
         required : true
-    }
+    },
+    date : {
+        type : Date,
+        default : Date.now
+    },
+    passengers : {
+        type : Number,
+        required : true
+    },
 })
 
 const UserRideModel = mongoose.model("UserRide",UserRideSchema);

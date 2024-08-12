@@ -1,30 +1,23 @@
-const RideModel = require("../Models/User/RideModel");
-const UserModel = require("../Models/User/UserModel");
-const DriverModel = require("../Models/Driver/DriverModel");
-const UserRideModel = require("../Models/User/UserRideModel");
-// const {v4} = require("uuid")
+const RideModel = require("../Models/RideModel");
+const UserModel = require("../Models/UserModel");
+const UserRideModel = require("../Models/UserRideModel");
 
 const { v4: uuidv4 } = require('uuid'); 
 
-
 const addservice = async (req, res) => {
   const user_id = req.user.id;
-  console.log(user_id);
-  const { driver_id, fare } = req.body;
+  const { ride_id } = req.params.id; 
 
   try {
     const userRides = await UserRideModel.find({ user_id });
+    
 
     if (!userRides || userRides.length === 0) {
       return res.status(404).json({
         status: "failure",
         message: "User rides not found",
       });
-    }
-    const driver = await DriverModel.findOne(
-      { _id: driver_id },
-      'driver_name driver_phone driver_age'
-    );
+    }    
 
     if (!driver) {
       return res.status(404).json({
@@ -33,18 +26,26 @@ const addservice = async (req, res) => {
       });
     }
 
-    const rideIds = userRides.map(ride => ride.ride_id);
-    const rideDetails = await RideModel.find({ ride_id: { $in: rideIds } });
+    const rideDetails = userRides.find(ride => ride.ride_id === ride_id);
+    console.log(rideDetails);
+    
+
+    if (!rideDetails) {
+      return res.status(404).json({
+        status: "failure",
+        message: "Ride details not found",
+      });
+    }
 
     const newService = new RideModel({
-      ride_id: uuidv4(),
       user_id,
       driver_id,
-      fare,
-      ride_details: { rideDetails, driver }
+      ride_details: { ...rideDetails._doc, driver } 
     });
+
     await newService.save();
     await UserRideModel.deleteOne({ user_id });
+
     res.status(200).json({
       status: "success",
       message: "Ride placed successfully",

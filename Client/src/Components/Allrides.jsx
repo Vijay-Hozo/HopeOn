@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RideCard from './RideCard';
 
-const MyRides = () => {
+const Allrides = () => {
   const [rides, setRides] = useState([]);
 
   useEffect(() => {
@@ -11,9 +11,9 @@ const MyRides = () => {
 
   const getRides = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/user/getride", {
+      const response = await axios.get("http://localhost:3000/driverride", {
         headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YWRlY2JiN2NhODFmYjExMDA3ZTllNyIsImlhdCI6MTcyMzEzMjA4OCwiZXhwIjoxNzIzMTYwODg4fQ.NmM987_4Mnb1I-_cgnNmeb1DNAXBUsy8O9JZ3gBHBeE"
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjczZWQ4NDQyYTc2NjdjNjIzNGU2YiIsImlhdCI6MTcyMzM4NDY5MSwiZXhwIjoxNzIzNDEzNDkxfQ.ht8BI0p5zdpnu4B-z6UnKplKRGfSCB7_PeePlX5CYac"
         }
       });
       
@@ -25,7 +25,7 @@ const MyRides = () => {
   };
 
   return (
-    <div className='flex flex-wrap'>
+    <div className='flex flex-col items-center'>
       {rides.map((ride, index) => (
         <RideCard key={index} ride={ride} />
       ))}
@@ -33,4 +33,4 @@ const MyRides = () => {
   );
 }
 
-export default MyRides;
+export default Allrides;

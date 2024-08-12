@@ -1,53 +1,52 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 
-const DriverSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
     {
-        driver_name : {
+        user_name : {
             type : String,
             required : true
         },
-        driver_email : {
+        user_email : {
             type:String,
             required:true
         },
-        driver_password:{
+        user_password:{
             type:String,
             required:true
         },
-        driver_phone:{
+        user_phone:{
             type:Number,
             required:true
         },
-        driver_age : {
+        user_age : {
             type:Number,
             required:true
         },
-        license_number:{
+        user_gender:{
             type:String,
-            required:true
+            required : true
         },
-        vehicle_number:{
+        profile:{
             type:String,
-            required:true
+            required : true
         },
-        profile_photo : {
+        government_id:{
             type:String,
-            required:true
-        }  
+        }
     }
 )
 
-DriverSchema.pre('save',async function(next){
-    if(!this.isModified("driver_password")){
+UserSchema.pre('save',async function(next){
+    if(!this.isModified("user_password")){
         return next;
     }
     else{
         const salt = await bcrypt.genSalt(10);
-        this.driver_password = await bcrypt.hash(this.driver_password,salt);
+        this.user_password = await bcrypt.hash(this.user_password,salt);
         next();
     }
 })
 
-const DriverModel = mongoose.model("Driver",DriverSchema);
-module.exports = DriverModel;
+const UserModel = mongoose.model("User",UserSchema);
+module.exports = UserModel;

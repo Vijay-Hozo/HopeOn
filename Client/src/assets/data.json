@@ -1,0 +1,80 @@
+{
+    "zones": [
+      {
+        "zone_name": "North Coimbatore",
+        "latitude": 11.0457,
+        "longitude": 76.9478
+      },
+      {
+        "zone_name": "Central Coimbatore",
+        "latitude": 11.0168,
+        "longitude": 76.9558
+      },
+      {
+        "zone_name": "East Coimbatore",
+        "latitude": 11.0183,
+        "longitude": 77.0310
+      },
+      {
+        "zone_name": "South Coimbatore",
+        "latitude": 10.9601,
+        "longitude": 76.9856
+      },
+      {
+        "zone_name": "West Coimbatore",
+        "latitude": 11.0109,
+        "longitude": 76.9041
+      },
+      {
+        "zone_name": "Peelamedu",
+        "latitude": 11.0289,
+        "longitude": 77.0167
+      },
+      {
+        "zone_name": "Saravanampatti",
+        "latitude": 11.0932,
+        "longitude": 76.9663
+      },
+      {
+        "zone_name": "RS Puram",
+        "latitude": 11.0120,
+        "longitude": 76.9515
+      },
+      {
+        "zone_name": "Saibaba Colony",
+        "latitude": 11.0251,
+        "longitude": 76.9358
+      },
+      {
+        "zone_name": "Singanallur",
+        "latitude": 10.9978,
+        "longitude": 77.0214
+      },
+      {
+        "zone_name": "Gandhipuram",
+        "latitude": 11.0180,
+        "longitude": 76.9763
+      },
+      {
+        "zone_name": "Sri Eshwar College of Engineering",
+        "latitude": 10.8477,
+        "longitude": 77.0391
+      },
+      {
+        "zone_name": "Kinnathukadavu",
+        "latitude": 10.8315,
+        "longitude": 77.0055
+      },
+      {
+        "zone_name": "Vadasithur",
+        "latitude": 10.8020,
+        "longitude": 77.0177
+      },
+      {
+        "name": "Pollachi",
+        "latitude": 10.6583,
+        "longitude": 77.0086
+      }
+    ]
+  }
+  

@@ -1,9 +1,16 @@
-const UserModel = require("../Models/User/UserModel");
+const UserModel = require("../Models/UserModel");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const newuser = async(req,res) => {
-    const {user_name, user_email,user_password,user_phone, user_age, user_gender,profile_photo} = req.body;
+    const {user_name,
+           user_email,
+           user_password,
+           user_phone, 
+           user_age, 
+           user_gender,
+           profile
+        } = req.body;
     try{
         const newuser = new UserModel({
             user_name,
@@ -12,7 +19,7 @@ const newuser = async(req,res) => {
             user_phone,
             user_age,
             user_gender,
-            profile_photo
+            profile
         }
         )
         if(user_password.length<6 ){
@@ -76,4 +83,29 @@ const loginuser = async(req,res)=>{
     }
 }
 
-module.exports = {newuser,loginuser}
+const getuserbyid = async(req,res)=>{
+    const user_id = req.user.id;
+    try{
+        const user = await UserModel.findById(user_id)
+        if(!user){
+            return res.status(401).json({
+                status:"failure",
+                message:"User not found"
+            })
+        }
+        res.status(200).json({
+            status:"success",
+            message:"User fetched successfully",
+            user
+        })
+    }
+    catch(err){
+        res.status(400).json({
+            status:"failure",
+            message:"cant fetch user",
+            error:err.message
+        })
+    }
+}
+
+module.exports = {newuser,loginuser,getuserbyid}

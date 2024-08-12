@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 
-const UserRoute = require("./Routes/UserRoute/UserRoute")
-const DriverRoute = require("./Routes/DriverRoute/DriverRoute") 
-const UserRideRoute = require("./Routes/UserRoute/UserRideRoute")
-const RideRoute = require('./Routes/UserRoute/RideRoute')
+const UserRoute = require("./Routes/UserRoute")
+const UserRideRoute = require("./Routes/UserRideRoute")
+// const RideRoute = require('./Routes/RideRoute')
+const DriverRideRoute = require("./Routes/DriverRideRoute")
+const RequestController = require("./Routes/RequestRoute")
 
 const app = express()
 app.use(bodyparser.json())
@@ -21,9 +22,10 @@ mongoose.connect(
 });
 
 app.use('/',UserRoute)
-app.use('/',DriverRoute)
 app.use('/',UserRideRoute)
-app.use("/",RideRoute);
+app.use('/',DriverRideRoute)
+app.use('/',RequestController)
+// app.use("/",RideRoute);
 
 
 app.listen(3000,()=>{

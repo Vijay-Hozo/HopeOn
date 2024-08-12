@@ -1,17 +1,14 @@
 import React from 'react'
 import Ride from "../Components/Ride"
-import Map from "../Components/Map"
+import Header from "../Components/Header"
+
 
 const MainPage = () => {
   return (
-    <div className='flex justify-between h-full gap-2'>
         <div>
+            <Header />
             <Ride />
         </div>
-        <div>
-            <Map />
-        </div>
-    </div>
   )
 }
 

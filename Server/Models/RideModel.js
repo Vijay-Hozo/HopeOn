@@ -3,20 +3,8 @@ const UserRideModel = require("./UserRideModel");
 
 const RideSchema = new mongoose.Schema(
     {
-        ride_id:{
-            type:String,
-            required:true
-        },
         user_id:{
             type:String,
-            required:true
-        },
-        driver_id:{
-            type:String,
-            required:true
-        },
-        fare:{
-            type:Number,
             required:true
         },
         ride_details:{

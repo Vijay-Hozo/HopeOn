@@ -1,33 +1,29 @@
-const UserRideModel = require('../Models/UserRideModel')
-const UserModel = require('../Models/UserModel')
+const DriverRideModel = require( "../Models/DriverRideModel");
+const UserModel = require( "../Models/UserModel");
 const {v4} = require('uuid')
 
-const userRide = async(req,res) => {
-    const user_id = req.user.id;
-    const {departure,arrival,date,passengers} = req.body;
+const driverride = async(req,res)=>{
     try{
-        const user = await UserModel.findById(user_id);
-        if(!user){
-            return res.status(401).json({
-                status:"failure",
-                message:"User not found"
-            })
-        }
-        const newride = new UserRideModel({
-            ride_id : v4(),
-            user_id,
-            departure,
-            arrival,
-            date,
-            passengers
-        })
-        await newride.save()
-        res.status(200).json({
+    const {departure,via,arrival,date,time,fare} = req.body;
+    const user_id = req.user.id;
+    const newride = await new DriverRideModel({
+        ride_id : v4(),
+        user_id,
+        departure,
+        via,
+        arrival,
+        date,
+        time,
+        fare
+    })
+    await newride.save();
+    res.status(200).json(
+        {
             status:"success",
             message:"Ride created successfully",
             newride
-        })
-    }
+        }
+    )}
     catch(err){
         res.status(400).json({
             status:"failure",
@@ -39,6 +35,8 @@ const userRide = async(req,res) => {
 
 const getrides = async(req,res)=>{
     const user_id = req.user.id;
+    console.log(user_id);
+    
     try{
         const user = await UserModel.find({user_id});
         if(!user){
@@ -47,7 +45,9 @@ const getrides = async(req,res)=>{
                 message:"User not found"
             })
         }
-        const rides = await UserRideModel.find({user_id});
+        const rides = await DriverRideModel.find({user_id});
+        console.log(rides);
+        
         res.status(200).json({
             status:"success",
             message:"Rides fetched successfully",
@@ -63,7 +63,7 @@ const getrides = async(req,res)=>{
     }
 }
 
-const cancelride = async (req, res) => {
+const deleteride = async (req, res) => {
     const user_id = req.user.id;
     const ride_id = req.params.id;
     console.log(user_id,ride_id);
@@ -79,7 +79,7 @@ const cancelride = async (req, res) => {
         });
       }
   
-      const ride = await UserRideModel.findOneAndDelete({ ride_id, user_id });
+      const ride = await DriverRideModel.findOneAndDelete({ ride_id, user_id });
   
       if (!ride) {
         return res.status(404).json({
@@ -101,5 +101,6 @@ const cancelride = async (req, res) => {
       });
     }
   };
+  
 
-module.exports = {userRide,getrides,cancelride}
+module.exports = {driverride,getrides,deleteride}
