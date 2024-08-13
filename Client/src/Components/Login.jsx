@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { login } from '../Redux/userSlice';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Header from './Header';
 
 const PasswordInput = ({ value, onChange }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -35,7 +36,7 @@ const PasswordInput = ({ value, onChange }) => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        class="w-5 h-5"
+                        className="w-5 h-5"
                     >
                         <path
                             strokeLinecap="round"
@@ -74,7 +75,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [searchParams,setSearchParams] = useSearchParams();
-    const returnTo = searchParams.get("returnTo") || "/";
+    const returnTo = searchParams.get("returnTo") || "/allrides";
 
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
@@ -85,8 +86,6 @@ const Login = () => {
         user_email:email,
         user_password:password
     })
-    console.log(res);
-    console.log("loggined successfully");
     toast.success("loggined successfully")
     dispatch(login(res.data.user));
     localStorage.setItem("token",res.data.token);
@@ -98,7 +97,9 @@ const Login = () => {
 }
 
   return (
-    <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] bg-blue-950 font-semibold text-white '>
+    <div>
+        <Header />
+        <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] bg-blue-950 font-semibold text-white '>
         
         <div className='flex items-center gap-2 mb-4'>
             <h1 className='text-3xl'>Back To Ride With </h1>
@@ -129,8 +130,8 @@ const Login = () => {
             
             <div className='flex flex-col items-center'>
                 <h1 className='text-center my-4'>or</h1>
-            <button type="button" class="text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
-                <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
+            <button type="button" className="text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
+                <svg className="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
                 <path fillRule="evenodd" d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z" clipRule="evenodd"/>
                 </svg>
                     Sign in with Google
@@ -143,6 +144,8 @@ const Login = () => {
             </div>
         </form>
     </div>
+    </div>
+    
   )
 }
 

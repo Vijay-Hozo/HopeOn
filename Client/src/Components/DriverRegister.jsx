@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Button from '../assets/Button'
-import Signupimage from '../assets/Image/Sign up-rafiki.svg'
+import Signupimage from '../assets/Image/driversign.svg'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { driverlogin } from '../Redux/driverSlice'
+import DriverHeader from '../Components/DriverHeader'
 
 const UserRegister = () => {
   const dispatch = useDispatch()
@@ -33,27 +34,26 @@ const UserRegister = () => {
         vehicle_number: vehicle,
         profile_photo: profilePhoto
       })
-      console.log('driver registered')
-      console.log(res)
       toast.success('driver registered')
       dispatch(driverlogin(res.data.drivertoken))
       localStorage.setItem('drivertoken', res.data.drivertoken)
       navigate('/driverride')
+      toast.success('driver registered')
     } catch (err) {
-      //   toast.error(err.response.data.message)
-      console.log(err)
-      console.log(err.response.data.message)
+      toast.error(err.response.data.message)
     }
   }
 
   return (
-    <div className='flex bg-background-primary bg-gradient-to-b from-background-primary to-background-secondary'>
+    <div>
+      <DriverHeader />
+      <div className='flex bg-blue-950 text-white'>
       <div>
-        <img src={Signupimage} alt='Sign up' className='w-[900px] h-[678px]' />
+        <img src={Signupimage} alt='Sign up' className='w-[700px] h-[678px]' />
       </div>
 
       <form
-        className='flex flex-col items-center text-xl gap-4 max-h-full w-full text-blue-950 font-semibold py-5'
+        className='flex flex-col items-center text-xl gap-4 max-h-full w-full text-white  py-5'
         onSubmit={handleregister}
       >
         <div>
@@ -125,9 +125,10 @@ const UserRegister = () => {
 
         <div>
           <div>
+            <label htmlFor='profile' className='text-white font-semibold'>Profile Photo</label>
             <input
               type='file'
-              className='text-black p-2 rounded-xl'
+              className='text-white p-2 rounded-xl'
               value={profilePhoto}
               onChange={(e) => setProfilePhoto(e.target.value)}
             />
@@ -149,7 +150,7 @@ const UserRegister = () => {
         </div>
 
         <div>
-          <h1 className='text-center mb-4'>or</h1>
+          <h1 className='text-center mb-2 text-black'>or</h1>
           <button
             type='button'
             className='text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2'
@@ -172,12 +173,13 @@ const UserRegister = () => {
         </div>
 
         <div>
-          <span>Already a member?</span>
+          <span className='text-white'>Already a member?</span>
           <span className='text-yellow-400'>
             <a href='/driverlogin'> Login</a>
           </span>
         </div>
       </form>
+    </div>
     </div>
   )
 }

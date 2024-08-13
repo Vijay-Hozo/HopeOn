@@ -4,15 +4,13 @@ import email from '../assets/Image/mail.svg'
 import phone from '../assets/Image/phone.svg'
 import age from '../assets/Image/age.svg'
 import gender from '../assets/Image/gender.svg'
-// import fromlocation from "../assets/Image/from.svg";
-// import tolocation from "../assets/Image/to.svg";
 import statusimage from '../assets/Image/status.svg'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const RequestCard = ({ request }) => {
-  //   const token = useSelector((state) => state.user.token)
   const token = localStorage.getItem('drivertoken')
+
   const [requestStatus, setRequestStatus] = useState(request.status)
   const [status, setStatus] = useState('')
 
@@ -33,9 +31,8 @@ const RequestCard = ({ request }) => {
           }
         }
       )
-      console.log(res)
-      console.log('Accepted successfully')
       setRequestStatus('accept')
+      toast.success('Accepted successfully')
     } catch (err) {
       console.log(err.message)
     }
@@ -57,6 +54,7 @@ const RequestCard = ({ request }) => {
       console.log('Request deleted')
       console.log(res)
       setRequestStatus('decline')
+      toast.success('Request declined')
     } catch (err) {
       console.log(err.message)
     }
@@ -65,11 +63,10 @@ const RequestCard = ({ request }) => {
   return (
     <div className='flex flex-col md:flex-row justify-evenly items-center text-blue-950 font-semibold p-6 rounded-lg mb-4'>
       <div className='space-y-4 w-[500px] bg-slate-100 p-10 rounded-3xl'>
-        {request.ride_id}
 
         <div className='flex items-center gap-20'>
           <img src={name} className='w-8 h-8' alt='Name Icon' />
-          <p className='text-lg font-semibold'>{request.ride_id}</p>
+          <p className='text-lg font-semibold'>{user.user_name}</p>
         </div>
 
         <div className='flex items-center gap-20'>
@@ -96,7 +93,7 @@ const RequestCard = ({ request }) => {
           <img src={statusimage} className='w-8 h-8' alt='Status Icon' />
           {requestStatus === 'accept' ? (
             <p
-              className='text-lg font-semibold bg-green-500 p-3 rounded'
+              className='text-lg text-white font-semibold bg-green-500 p-3 rounded'
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
@@ -109,7 +106,7 @@ const RequestCard = ({ request }) => {
           )}
         </div>
       </div>
-      <div className='flex gap-16 mt-4 md:mt-0'>
+      <div className='flex gap-16 mt-4 md:mt-0 text-white'>
         <button className='bg-green-600 p-4 rounded-2xl' onClick={handleAccept}>
           Accept
         </button>

@@ -1,11 +1,12 @@
 import React from 'react'
-import Header from "../Components/Header"
 import { Outlet } from 'react-router-dom'
+import Landingpage from './Landingpage'
 
 const HomeLayout = () => {
   return (
     <div>
-        <Header />
+        <Landingpage />
+        <Footer />
         <Outlet />
     </div>
   )

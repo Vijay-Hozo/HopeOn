@@ -6,6 +6,7 @@ import image from '../assets/Image/BikeImag.jpg'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
+import DriverHeader from '../Components/DriverHeader'
 
 const DriverRide = () => {
   const driverToken = useSelector((state) => state.driver.drivertoken)
@@ -13,7 +14,7 @@ const DriverRide = () => {
 
   const [departure, setDeparture] = useState('')
   const [arrival, setArrival] = useState('')
-  const [date, newDate] = useState(new Date())
+  const [date, newDate] = useState('')
   const [time, setTime] = useState('')
   const [fare, setFare] = useState('')
   const handleRide = async (e) => {
@@ -29,10 +30,8 @@ const DriverRide = () => {
           }
         }
       )
-      console.log(response)
-      console.log('Ride Posted')
       toast.success(response.data.message)
-      navigate('/allrides')
+      navigate('/request')
     } catch (err) {
       console.log(err)
       toast.error(err.response.data.message)
@@ -40,6 +39,7 @@ const DriverRide = () => {
   }
   return (
     <div>
+      <DriverHeader />
       <div className='relative flex justify-center items-center'>
         <img src={image} alt='' className='w-full h-[800px] object-cover' />
         <div className='absolute bg-slate-400 flex flex-col w-[400px] h-[700px] top-10 items-center justify-center gap-6 p-8  rounded-3xl'>
@@ -87,6 +87,7 @@ const DriverRide = () => {
               <label className='text-white text-lg'>Fare</label>
               <input
                 type='number'
+                placeholder='₹'
                 value={fare}
                 className='rounded-xl p-3 text-black focus:outline-none'
                 onChange={(e) => setFare(e.target.value)}

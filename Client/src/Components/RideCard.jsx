@@ -7,6 +7,7 @@ import dateicon from '../assets/Image/datesvg.svg'
 import timeicon from '../assets/Image/time.svg'
 import status from '../assets/Image/status.svg'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const RideCard = ({ ride }) => {
   const [requestStatus, setRequestStatus] = useState(null)
@@ -27,11 +28,11 @@ const RideCard = ({ ride }) => {
           }
         }
       )
-      console.log(res)
-      console.log('Requested Successfully')
       setRequestStatus('requested')
+      toast.success('Requested Successfully')
     } catch (err) {
       console.log(err)
+      toast.error(err.response.data.message)
     }
   }
 

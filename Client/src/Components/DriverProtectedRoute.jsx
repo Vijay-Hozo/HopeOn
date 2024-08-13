@@ -3,9 +3,9 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 const ProtectedRoute = () => {
   const location = useLocation();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("drivertoken");
   return token ? 
-  <Outlet /> : <Navigate to = {`/userlogin?return_to=${location.pathname}`} />
+  <Outlet /> : <Navigate to = {`/driverlogin?return_to=${location.pathname}`} />
 }
 
 export default ProtectedRoute

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { driverlogin } from '../Redux/driverSlice'
 import { useNavigate } from 'react-router-dom'
+import DriverHeader from '../Components/DriverHeader'
 
 const PasswordInput = ({ value, onChange }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -81,8 +82,6 @@ const Login = () => {
         driver_email: email,
         driver_password: password
       })
-      console.log(res)
-      console.log('loggined successfully')
       toast.success('loggined successfully')
       dispatch(driverlogin(res.data.drivertoken))
       localStorage.setItem('drivertoken', res.data.drivertoken)
@@ -93,7 +92,9 @@ const Login = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] text-blue-950 font-semibold bg-gradient-to-b from-background-primary to-background-secondary '>
+    <div>
+      <DriverHeader />
+      <div className='flex flex-col items-center justify-center text-white text-lg py-4 h-[680px] bg-blue-950 font-semibold bg-gradient-to-b from-background-primary to-background-secondary '>
       <div className='flex items-center gap-2 mb-4'>
         <h1 className='text-3xl'>Back As Rider For</h1>
         <Title />
@@ -160,6 +161,7 @@ const Login = () => {
           </span>
         </div>
       </form>
+    </div>
     </div>
   )
 }

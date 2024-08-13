@@ -1,13 +1,11 @@
 const DriverModel = require("../Models/DriverModel");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const {v4} = require('uuid')
 
 const newdriver = async(req,res) => {
     const {driver_name, driver_email,driver_password,driver_phone, driver_age, government_id, vehicle_number,profile_photo} = req.body;
     try{
         const newdriver = new DriverModel({
-            // driver_id : v4(),
             driver_name,
             driver_email,
             driver_password,

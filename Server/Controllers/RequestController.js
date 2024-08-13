@@ -7,7 +7,6 @@ const request = async (req, res) => {
   try {
     const { ride_id } = req.body
     const user_id = req.user.id
-    console.log(user_id, ride_id)
 
     const ride = await DriverRideModel.findOne({ ride_id })
     console.log(ride)
@@ -42,38 +41,13 @@ const request = async (req, res) => {
   }
 }
 
-// const getrequests = async (req, res) => {
-//   const driver_id = req.user.id
-//   console.log(driver_id)
-//   try {
-// const requests = await RequestModel.find({ driver_id }).populate({
-//   path: 'user_id',
-//   select: 'user_name user_email user_phone user_age user_gender' // Select user details
-// })
-
-//     console.log(requests)
-//     res.status(200).json({
-//       status: 'success',
-//       message:
-//         'Requests and associated user and ride details fetched successfully',
-//       requests
-//     })
-//   } catch (err) {
-//     res.status(400).json({
-//       status: 'failure',
-//       message: 'Cannot fetch requests',
-//       error: err.message
-//     })
-//   }
-// }
 
 const getrequests = async (req, res) => {
   const driver_id = req.user.id
-  console.log(driver_id)
   try {
     const requests = await RequestModel.find({ driver_id }).populate({
       path: 'user_id',
-      select: 'user_name user_email user_phone user_age user_gender' // Select user details
+      select: 'user_name user_email user_phone user_age user_gender' 
     })
     console.log('requests : ', requests)
 
@@ -158,7 +132,6 @@ const deleterequest = async (req, res) => {
       request
     })
   } catch (err) {
-    // console.log(err);
     res.status(500).json({
       status: 'failure',
       message: 'An error occurred while deleting the request',

@@ -7,7 +7,6 @@ const driverride = async (req, res) => {
   try {
     const { departure, arrival, date, time, fare } = req.body
     const driver_id = req.user.id
-    console.log('Driver id from Create ride : ', driver_id)
 
     const newride = new DriverRideModel({
       ride_id: v4(),
@@ -100,7 +99,6 @@ const getallrides = async (req, res) => {
 const deleteride = async (req, res) => {
   const driver_id = req.user.id
   const ride_id = req.params.id
-  // console.log(driver_id,ride_id);
 
   try {
     const user = await DriverModel.findOne({ _id: driver_id })
