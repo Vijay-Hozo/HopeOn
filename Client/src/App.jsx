@@ -14,7 +14,8 @@ import { login } from './Redux/userSlice'
 import Ride from './Components/Ride'
 import DriverRide from './Components/DriverRide'
 import Profile from './Components/Profile'
-import Notification from './Components/Notification'
+import Request from './Components/Request'
+import ProtectedRoute from './Components/ProtectedRoute'
 
 
 const App = () => {
@@ -39,10 +40,15 @@ const App = () => {
               <Route path = "/userlogin" element = {<Login />} />
               <Route path = "/driverregister" element = {<DriverRegister />} />
               <Route path = "/driverlogin" element = {<DriverLogin />} />
-              <Route path = "/allrides" element = {<Allrides />} />
               <Route path = "/driverride" element = {<DriverRide />} />
-              <Route path = "/profile" element = {<Profile />} />
+
+              <Route element={<ProtectedRoute/>}>
+                  <Route path = "/allrides" element = {<Allrides />} />
+              </Route>
+
+                  <Route path = "/profile" element = {<Profile />} />
               <Route path = "/notification" element = {<Notification />} />
+              <Route path = "/request" element = {<Request />} />
           </Route>
 
         </Routes>

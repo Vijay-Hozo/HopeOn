@@ -7,6 +7,7 @@ import bike from "../assets/Image/bike.svg"
 import ride from "../assets/Image/ride.svg"
 import request from "../assets/Image/request.svg"
 import security from "../assets/Image/password.svg"
+import { Link } from 'react-router-dom';
 
 const ProfileCard = ({ Profile }) => {
   return (
@@ -53,7 +54,7 @@ const ProfileCard = ({ Profile }) => {
 
         <div className="flex items-center gap-20">
           <img src={request} alt="Gender Icon" className="w-16" />
-          <p>Request</p>
+          <Link to="/request">Request</Link>
         </div>
 
         <div className="flex items-center gap-20">

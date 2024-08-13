@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import RideCard from './RideCard';
+import RideCard from '../Components/RideCard';
 
 const Allrides = () => {
   const [rides, setRides] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     getRides();
@@ -11,24 +12,27 @@ const Allrides = () => {
 
   const getRides = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/driverride", {
-        headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjczZWQ4NDQyYTc2NjdjNjIzNGU2YiIsImlhdCI6MTcyMzM4NDY5MSwiZXhwIjoxNzIzNDEzNDkxfQ.ht8BI0p5zdpnu4B-z6UnKplKRGfSCB7_PeePlX5CYac"
-        }
-      });
-      
+      const response = await axios.get("http://localhost:3000/driverrides");
+      console.log(response.data);
       setRides(response.data.rides);
-      
     } catch (error) {
       console.error('Error fetching ride data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className='flex flex-col items-center'>
-      {rides.map((ride, index) => (
-        <RideCard key={index} ride={ride} />
-      ))}
+      {loading ? (
+        <p>Loading rides...</p>
+      ) : rides.length > 0 ? (
+        rides.map((ride, index) => (
+          <RideCard key={index} ride={ride} />
+        ))
+      ) : (
+        <p>No rides available</p>
+      )}
     </div>
   );
 }

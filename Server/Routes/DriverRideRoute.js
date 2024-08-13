@@ -1,10 +1,11 @@
 const express = require("express");
 const Router = express.Router();
 const DriverRideController = require('../Controllers/DriverRideController')
-const UserAuth = require('../Middleware/UserAuth')
+const DriverAuth = require('../Middleware/DriverAuth');
 
-Router.post('/driverride',UserAuth,DriverRideController.driverride);
-Router.get('/driverride',UserAuth,DriverRideController.getrides);
-Router.delete('/driverride/:id',UserAuth,DriverRideController.deleteride);
+Router.post('/driverride',DriverAuth,DriverRideController.driverride);
+Router.get('/driverride',DriverAuth,DriverRideController.getrides);
+Router.delete('/driverride/:id',DriverAuth,DriverRideController.deleteride);
+Router.get('/driverrides',DriverRideController.getallrides);
 
 module.exports = Router;

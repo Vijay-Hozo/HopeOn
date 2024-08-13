@@ -3,6 +3,9 @@ import Title from '../assets/Title'
 import Button from '../assets/Button'
 import axios from "axios"
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { driverlogin } from '../Redux/driverSlice';
+import { useNavigate } from 'react-router-dom';
 
 const PasswordInput = ({ value, onChange }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -67,6 +70,8 @@ const PasswordInput = ({ value, onChange }) => {
 };
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const handlelogin = async(e)=>{
@@ -79,7 +84,9 @@ const Login = () => {
     console.log(res);
     console.log("loggined successfully");
     toast.success("loggined successfully")
-    localStorage.setItem("token",res.data.token);
+    dispatch(driverlogin(res.data.driver))
+    localStorage.setItem("drivertoken",res.data.drivertoken);
+    navigate("/driverride")
     }
     catch(err){
         toast.error(err.response.data.message)
@@ -87,7 +94,7 @@ const Login = () => {
 }
 
   return (
-    <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] text-white bg-gradient-to-b from-background-primary to-background-secondary '>
+    <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] text-blue-950 font-semibold bg-gradient-to-b from-background-primary to-background-secondary '>
         
         <div className='flex items-center gap-2 mb-4'>
             <h1 className='text-3xl'>Back As Rider For</h1>

@@ -4,6 +4,7 @@ const bodyparser = require("body-parser");
 const cors = require("cors");
 
 const UserRoute = require("./Routes/UserRoute")
+const DriverRoute = require("./Routes/DriverRoute")
 const UserRideRoute = require("./Routes/UserRideRoute")
 // const RideRoute = require('./Routes/RideRoute')
 const DriverRideRoute = require("./Routes/DriverRideRoute")
@@ -22,6 +23,7 @@ mongoose.connect(
 });
 
 app.use('/',UserRoute)
+app.use('/',DriverRoute)
 app.use('/',UserRideRoute)
 app.use('/',DriverRideRoute)
 app.use('/',RequestController)

@@ -4,14 +4,14 @@ const driverSlice = createSlice(
     {
         name:"driver",
         initialState:{
-            token : null
+            drivertoken : null
         },
         reducers:{
             driverlogin:(state,action)=>{
-                state.token = action.payload.token;
+                state.drivertoken = action.payload;
             },
             driverlogout:(state)=>{
-                state.token = null;
+                state.drivertoken = null;
             }
         }
     }

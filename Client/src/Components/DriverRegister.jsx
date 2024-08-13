@@ -3,16 +3,23 @@ import Button from "../assets/Button";
 import Signupimage from "../assets/Image/Sign up-rafiki.svg";
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { driverlogin } from '../Redux/driverSlice';
 
 const UserRegister = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
     const [age, setAge] = useState('');
-    const [license, setLicense] = useState('');
+    const [governmentid, setgovernmentid] = useState('');
     const [vehicle, setVehicle] = useState('');
-    const [profile, setProfile] = useState('');
+    const [profilePhoto, setProfilePhoto] = useState('');
 
     const handleregister = async(e) => {
       e.preventDefault();
@@ -23,16 +30,22 @@ const UserRegister = () => {
           driver_password:password,
           driver_phone : phone,
           driver_age : age,
-          license_number : license,
+          government_id : governmentid,
           vehicle_number : vehicle,
-          profile_photo : profile
+          profile_photo : profilePhoto
       })
       console.log("driver registered");
       console.log(res);
       toast.success("driver registered")
+      dispatch(driverlogin(res.data.driver));
+      localStorage.setItem("drivertoken",res.data.drivertoken);
+      navigate("/driverride");
   }
   catch(err){
-      toast.error(err.response.data.message)
+    //   toast.error(err.response.data.message)
+      console.log(err);
+      console.log(err.response.data.message);
+      
   }      
   }
 
@@ -42,7 +55,7 @@ const UserRegister = () => {
                 <img src={Signupimage} alt="Sign up" className='w-[900px] h-[678px]' />
             </div>
 
-            <form className='flex flex-col items-center text-xl gap-4 max-h-full w-full text-white py-5' onSubmit={handleregister}>
+            <form className='flex flex-col items-center text-xl gap-4 max-h-full w-full text-blue-950 font-semibold py-5' onSubmit={handleregister}>
                 <div>
                     <span className='text-3xl font-bold text-yellow-400'>Welcome to</span>
                     <span className='text-3xl font-bold text-green-600'> HopeON</span>
@@ -89,9 +102,9 @@ const UserRegister = () => {
                     <div>
                         <input type="text"
                             className='p-2 rounded-xl bg-gray-600 bg-opacity-10'
-                            placeholder='License Number'
-                            value={license}
-                            onChange={(e) => setLicense(e.target.value)}
+                            placeholder='Government Id'
+                            value={governmentid}
+                            onChange={(e) => setgovernmentid(e.target.value)}
                         />
                     </div>
                     <div>
@@ -107,9 +120,9 @@ const UserRegister = () => {
                 <div>
                     <div>
                         <input type="file"
-                            className='text-white p-2 rounded-xl'
-                            value={profile}
-                            onChange={(e) => setProfile(e.target.value)}
+                            className='text-black p-2 rounded-xl'
+                            value={profilePhoto}
+                            onChange={(e) => setProfilePhoto(e.target.value)}
                         />
                     </div>
                 </div>

@@ -3,8 +3,14 @@ import Button from '../assets/Button'
 // import { head } from '../../../Server/Routes/DriverRideRoute';
 import axios from 'axios';
 import image from "../assets/Image/BikeImag.jpg";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const DriverRide = () => {
+    const token = useSelector((state) => state.user.token);
+    const navigate = useNavigate()
+
     const [departure, setDeparture] = useState('');
     const [arrival, setArrival] = useState('');
     const [date, newDate] = useState(new Date());
@@ -16,22 +22,25 @@ const DriverRide = () => {
             const payload = {departure,arrival,date,time,fare}
             const response = await axios.post("http://localhost:3000/driverride",payload,{
                 headers:{
-                    Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjczZWQ4NDQyYTc2NjdjNjIzNGU2YiIsImlhdCI6MTcyMzM4NDY5MSwiZXhwIjoxNzIzNDEzNDkxfQ.ht8BI0p5zdpnu4B-z6UnKplKRGfSCB7_PeePlX5CYac"
+                    Authorization : `Bearer ${token}`
                 }
             })
             console.log(response)
             console.log("Ride Posted")
+            toast.success(response.data.message)
+            navigate("/allrides")
         }
         catch(err){
             console.log(err)
+            toast.error(err.response.data.message)
         }
     }
   return (
     <div>
       <div className="relative flex justify-center items-center">
-      <img src={image} alt="" className="w-full h-[800px] object-cover blur-sm" />
+      <img src={image} alt="" className="w-full h-[800px] object-cover" />
         <div className="absolute bg-slate-400 flex flex-col w-[400px] h-[700px] top-10 items-center justify-center gap-6 p-8  rounded-3xl">
-        <h1 className="text-2xl font-semibold text-white">POST Ride</h1>
+        <h1 className="text-2xl font-semibold text-white">Post A Ride</h1>
         <form className="flex flex-col gap-4 w-full">
           <div className="flex flex-col gap-2">
             <label className="text-white text-lg">From Location</label>

@@ -31,9 +31,7 @@ const UserSchema = new mongoose.Schema(
             type:String,
             required : true
         },
-        government_id:{
-            type:String,
-        }
+
     }
 )
 

@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import Title from '../assets/Title'
 import Button from '../assets/Button'
-import axios from "axios"
+import axios from "../Helpers/axios-config"
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { login } from '../Redux/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const PasswordInput = ({ value, onChange }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -35,7 +35,7 @@ const PasswordInput = ({ value, onChange }) => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-5 h-5"
+                        class="w-5 h-5"
                     >
                         <path
                             strokeLinecap="round"
@@ -73,6 +73,8 @@ const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [searchParams,setSearchParams] = useSearchParams();
+    const returnTo = searchParams.get("returnTo") || "/";
 
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
@@ -88,7 +90,7 @@ const Login = () => {
     toast.success("loggined successfully")
     dispatch(login(res.data.user));
     localStorage.setItem("token",res.data.token);
-    navigate("/");
+    navigate(returnTo);
     }
     catch(err){
         toast.error(err.response.data.message)
@@ -96,7 +98,7 @@ const Login = () => {
 }
 
   return (
-    <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] text-white bg-gradient-to-b from-background-primary to-background-secondary '>
+    <div className='flex flex-col items-center justify-center text-lg py-4 h-[680px] bg-blue-950 font-semibold text-white '>
         
         <div className='flex items-center gap-2 mb-4'>
             <h1 className='text-3xl'>Back To Ride With </h1>
@@ -135,7 +137,7 @@ const Login = () => {
                 </button>
             </div>
             <div className='flex items-center gap-3 mt-5'>
-                <span className='text-white text-3xl'>New to?</span>
+                <span className=' text-2xl'>New to?</span>
                 <span><Title /></span>
                 <span className='text-yellow-400'><a href="/userregister"> Register</a></span>
             </div>

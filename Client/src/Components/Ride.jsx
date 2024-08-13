@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../assets/Button';
 import axios from 'axios';
 import data from '../assets/data.json';  // Importing the JSON data
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addRide } from '../Redux/createSlice';
 import image from "../assets/Image/BikeImag.jpg";
 
@@ -39,6 +39,7 @@ const haversineDistance = (coords1, coords2) => {
 };
 
 const Ride = () => {
+  const token = useSelector((state) => state.user.token);
   const [departure, setDeparture] = useState('');
   const [arrival, setArrival] = useState('');
   const [distance, setDistance] = useState(null);
@@ -83,7 +84,7 @@ const Ride = () => {
 
         const res = await axios.post("http://localhost:3000/user/addride", payload, {
           headers: {
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YWRlY2JiN2NhODFmYjExMDA3ZTllNyIsImlhdCI6MTcyMzI2MjM0MywiZXhwIjoxNzIzMjkxMTQzfQ.WP0xUMNeKCNCzJmog-yvX1lZmToY4nNa8QXFfXdWcso"
+            Authorization: `Bearer ${token}`,
           }
         });
         console.log(res);

@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const DriverRideSchema = new mongoose.Schema (
     {
-        user_id :{
-            type : mongoose.Schema.Types.ObjectId,
+        driver_id :{
+            type : String,
+            ref : "Driver",
             required : true
         },
         ride_id : {
