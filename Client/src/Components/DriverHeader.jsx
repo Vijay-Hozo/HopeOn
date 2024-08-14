@@ -36,7 +36,7 @@ const DriverHeader = (props) => {
                 <img src={requestimage} alt='addicon' className='w-10 h-10' />
             </Link>
 
-          <Link to='/profile'>
+          <Link to='/driverprofile'>
               <img src={profile} alt='profile' className='w-8 h-8' />
           </Link>
 

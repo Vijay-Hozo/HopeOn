@@ -40,10 +40,10 @@ const DriverprofileCard = ({ Driverprofile }) => {
           <p>{Profile.driver_email}</p>
         </div>
 
-        <div className='flex items-center gap-20'>
+        {/* <div className='flex items-center gap-20'>
           <img src={gender} alt='Gender Icon' className='w-16' />
           <p>{Profile.driver_gender}</p>
-        </div>
+        </div> */}
 
         <div className='flex items-center gap-20'>
           <img src={document} alt='Gender Icon' className='w-16' />

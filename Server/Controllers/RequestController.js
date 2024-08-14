@@ -9,7 +9,6 @@ const request = async (req, res) => {
     const user_id = req.user.id
 
     const ride = await DriverRideModel.findOne({ ride_id })
-    console.log(ride)
     if (!ride) {
       return res.status(404).json({
         status: 'failure',
@@ -49,7 +48,6 @@ const getrequests = async (req, res) => {
       path: 'user_id',
       select: 'user_name user_email user_phone user_age user_gender' 
     })
-    console.log('requests : ', requests)
 
     const user = await UserModel.findOne({ _id: requests.user_id })
 
@@ -70,7 +68,6 @@ const getrequests = async (req, res) => {
 
 const managerequest = async (req, res) => {
   const { status, ride_id } = req.body
-  console.log('from server ', status, ride_id)
 
   try {
     const request = await RequestModel.findOne({ ride_id })
