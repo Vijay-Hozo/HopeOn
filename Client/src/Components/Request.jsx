@@ -28,12 +28,12 @@ const Request = () => {
   }
 
   return (
-    <div className='flex flex-col items-center min-h-screen'>
-  <div className='w-full p-4'>
-    <DriverHeader />
-  </div>
-  <h1 className='text-2xl font-semibold text-blue-950 mb-6'>My Requests</h1>
-  <div className='flex flex-col justify-center items-center flex-grow'>
+    <div className='flex flex-col items-center min-h-screen bg-gray-100'>
+    <div className='w-full p-4'>
+      <DriverHeader />
+    </div>
+    <h1 className='text-2xl font-semibold text-blue-950 mb-6'>My Requests</h1>
+    <div className='flex flex-col justify-center items-center flex-grow w-full px-4'>
     {requests.length > 0 ? (
       requests.map((request, index) => (
         <RequestCard key={index} request={request} />
