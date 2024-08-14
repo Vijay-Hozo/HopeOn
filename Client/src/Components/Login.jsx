@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { login } from '../Redux/userSlice';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Header from './Header';
+import Header from '../Components/Header';
 
 const PasswordInput = ({ value, onChange }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
