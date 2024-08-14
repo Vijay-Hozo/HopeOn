@@ -9,8 +9,7 @@ import Dropdown from '../assets/DropDown'
 import about from "../assets/Image/about.svg"
 import Footer from '../Components/Footer'
 import developer from "../assets/Image/developers.svg"
-import { Link } from 'react-scroll'
-
+import {Link} from "react-router-dom"
 
 const Landingpage = () => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -31,7 +30,7 @@ const Landingpage = () => {
             </>
             <>
                 <Link to="/footer" ><img src={about} className='w-10 mr-20' /></Link>
-                <a href="https://avijay.tech/"><img src={developer} className='w-10 h-10 mr-20' /> </a> 
+                <a href="https://avijay.tech/" target='blank'><img src={developer} className='w-10 h-10 mr-20' /> </a> 
             </>
             </div>
         </div>
@@ -47,17 +46,17 @@ const Landingpage = () => {
             <h1 className='text-center text-3xl text-yellow-500 on hover:text-blue-950 '>Simple to Use</h1>
             <div className='flex justify-between items-center'>
                 <div className='flex flex-col items-center'>
-                    <img src={Signup} className="h-[300px] transform transition-transform duration-500 hover:scale-105"  />
+                    <Link to="/userlogin"><img src={Signup} className="h-[300px] transform transition-transform duration-500 hover:scale-105"  /></Link>
                     <h1>Sign Up</h1>
                     <p>Sign up with your email and phone number</p>
                 </div>
                 <div className='flex flex-col items-center'>
-                    <img src={search} className="h-[300px] transform transition-transform duration-500 hover:scale-105"  />
+                    <Link to="/allrides"><img src={search} className="h-[300px] transform transition-transform duration-500 hover:scale-105"  /></Link>
                     <h1>Find Rides</h1>
                     <p>Find rides in your community</p>
                 </div>
                 <div className='flex flex-col items-center mb-10'>
-                <img src={bike} className="h-[350px] transform transition-transform duration-500 hover:scale-105" /> 
+                <Link to="/driverlogin"><img src={bike} className="h-[350px] transform transition-transform duration-500 hover:scale-105" /></Link> 
                     <h1>Share Rides</h1>
                     <p>Share rides with your community</p>
                 </div>

@@ -26,11 +26,11 @@ const Allrides = () => {
   };
 
   return (
-    <div>
-      <div className='mb-[300px]'>
+    <div className='flex flex-col w-full '>
+      <div className='w-full p-2'>
           <Header />
       </div>
-      <div className='flex flex-col justify-center items-center h-screen'>
+      <div className='flex flex-col justify-center items-center  overflow-y-scroll'>
         <h1 className='text-3xl font-semibold text-blue-950 on hover:text-yellow-400'>All Rides</h1>
       {loading ?
       (
