@@ -7,26 +7,25 @@ const sendmail = async (req, res) => {
   const subject = "Ride Request Accepted - Prepare for Your Journey!";
   
   try {
-    // Populate user and driver details
     const recipient = await RequestModel.findOne({ ride_id })
       .populate({
         path: "user_id",
-        select: "email", // Assuming the email field is 'email' in User model
+        select: "user_email", 
       })
       .populate({
         path: "driver_id",
-        select: "email name phone age", // Assuming these fields exist in Driver model
+        select: "driver_email driver_name driver_phone driver_age", // Assuming these fields exist in Driver model
       });
 
     if (!recipient) {
       return res.status(404).json({ message: "Ride request not found." });
     }
 
-    const user_email = recipient.user_id.email;
-    const driver_email = recipient.driver_id.email;
-    const driver_name = recipient.driver_id.name;
-    const driver_phone = recipient.driver_id.phone;
-    const driver_age = recipient.driver_id.age;
+    const user_email = recipient.user_id.user_email;
+    const driver_email = recipient.driver_id.driver_email;
+    const driver_name = recipient.driver_id.driver_name;
+    const driver_phone = recipient.driver_id.driver_phone;
+    const driver_age = recipient.driver_id.driver_age;
 
     // Construct the email body text
     const text = `
