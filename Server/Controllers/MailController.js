@@ -7,7 +7,7 @@ const sendmail = async (req, res) => {
   const subject = "Ride Request Accepted - Prepare for Your Journey!";
   
   try {
-    const recipient = await RequestModel.findOne({ ride_id })
+    const recipient = await RequestModel.find({ ride_id })
       .populate({
         path: "user_id",
         select: "user_email", 
@@ -22,6 +22,10 @@ const sendmail = async (req, res) => {
     }
 
     const user_email = recipient.user_id.user_email;
+    console.log(recipient);
+    
+    console.log(user_email);
+    
     const driver_email = recipient.driver_id.driver_email;
     const driver_name = recipient.driver_id.driver_name;
     const driver_phone = recipient.driver_id.driver_phone;
@@ -34,9 +38,7 @@ const sendmail = async (req, res) => {
     We are pleased to inform you that your ride request has been accepted! Your driver, ${driver_name}, is looking forward to providing you with a comfortable and safe journey. Below are the details of your upcoming ride:
 
     Ride Details:
-    - Departure Location: ${recipient.departure_location}
-    - Arrival Location: ${recipient.arrival_location}
-    - Departure Time: ${recipient.departure_time}
+   
     - Driver's Name: ${driver_name}
     - Driver's Phone: ${driver_phone}
     - Driver's Age: ${driver_age}
@@ -81,8 +83,8 @@ const sendmail = async (req, res) => {
     });
 
     // Clean up by deleting the request and driver ride records
-    await DriverRideModel.deleteOne({ ride_id });
-    await RequestModel.deleteOne({ ride_id });
+    // await DriverRideModel.deleteOne({ ride_id });
+    // await RequestModel.deleteOne({ ride_id });
 
     res.status(200).json({ message: "Email sent successfully." });
   } catch (error) {
