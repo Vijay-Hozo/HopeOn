@@ -13,7 +13,7 @@ const driverride = async (req, res) => {
       driver_id,
       departure,
       arrival,
-      date : date.tolocaleString(),
+      date : new Date(date).toISOString(),
       time,
       fare
     })
