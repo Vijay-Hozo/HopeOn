@@ -26,7 +26,7 @@ const UserRegister = () => {
     const handleregister = async(e) => {
         e.preventDefault();
         try{
-        const res = await axios.post("http://localhost:3000/register",{
+        const res = await axios.post("https://hopeon.onrender.com/register",{
             user_name : name,
             user_email : email,
             user_password:password,
@@ -45,6 +45,20 @@ const UserRegister = () => {
     catch(err){
         toast.error(err.response.data.message)
     }   
+    }
+
+    const handleVerify = async(e) =>{
+        e.preventDefault();
+        try{
+        const response = await axios.post("https://localhost:3000/sendotp",{
+            user_email : email
+        })
+        console.log(response);
+        toast.success("OTP sent successfully");
+    }catch(err){
+        console.log(err.response.message);
+        toast.error(err.response.message);
+    }
     }
 
   return (
@@ -130,7 +144,16 @@ const UserRegister = () => {
                     onChange={(e)=>setPassword(e.target.value)}
                 />
             </div>
+
+            <div>
+                <input type="text"
+                className='p-2 rounded-xl bg-slate-300 '
+                placeholder='Enter OTP'
+                />
+            </div>
+            
             <div className='mt-4'>
+                <Button onClick={handleVerify}>Verify Email</Button>
                 <Button type="submit">Register</Button>
             </div>
             

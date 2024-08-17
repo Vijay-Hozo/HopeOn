@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RequestCard from '../Components/RequestCard'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 import DriverHeader from '../Components/DriverHeader'
 import nothing from "../assets/Image/nothing.svg"
 
@@ -16,7 +15,7 @@ const Request = () => {
 
   const getRequest = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/request', {
+      const res = await axios.get('https://hopeon.onrender.com/request', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -29,11 +28,11 @@ const Request = () => {
 
   return (
     <div className='flex flex-col items-center min-h-screen bg-gray-100'>
-    <div className='w-full p-4'>
+    <div className='w-full'>
       <DriverHeader />
     </div>
     <h1 className='text-2xl font-semibold text-blue-950 mb-6'>My Requests</h1>
-    <div className='flex flex-col justify-center items-center flex-grow w-full px-4'>
+    <div className='flex flex-wrap justify-center items-center flex-grow w-full px-4'>
     {requests.length > 0 ? (
       requests.map((request, index) => (
         <RequestCard key={index} request={request} />

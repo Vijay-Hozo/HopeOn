@@ -10,6 +10,7 @@ const UserRideRoute = require("./Routes/UserRideRoute")
 const DriverRideRoute = require("./Routes/DriverRideRoute")
 const RequestController = require("./Routes/RequestRoute")
 const MailController = require("./Routes/MailRoute")
+const OTPRoute = require("./Routes/OTPRoute")
 
 const app = express()
 app.use(bodyparser.json())
@@ -29,6 +30,7 @@ app.use('/',UserRideRoute)
 app.use('/',DriverRideRoute)
 app.use('/',RequestController)
 app.use('/',MailController)
+app.use('/',OTPRoute)
 // app.use("/",RideRoute);
 
 

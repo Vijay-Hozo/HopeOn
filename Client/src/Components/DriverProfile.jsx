@@ -15,7 +15,7 @@ const DriverProfile = () => {
 
   const getDriverProfile = async () => {
     try {
-        const res = await axios.get('http://localhost:3000/driver', {
+        const res = await axios.get('https://hopeon.onrender.com/driver', {
           headers: {
             Authorization: `Bearer ${drivertoken}`
           }

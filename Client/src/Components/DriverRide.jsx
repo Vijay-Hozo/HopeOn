@@ -22,7 +22,7 @@ const DriverRide = () => {
     try {
       const payload = { departure, arrival, date, time, fare }
       const response = await axios.post(
-        'http://localhost:3000/driverride',
+        'https://hopeon.onrender.com/driverride',
         payload,
         {
           headers: {

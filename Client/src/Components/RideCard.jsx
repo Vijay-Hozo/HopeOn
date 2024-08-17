@@ -18,7 +18,7 @@ const RideCard = ({ ride }) => {
     e.preventDefault()
     try {
       const res = await axios.post(
-        'http://localhost:3000/request',
+        'https://hopeon.onrender.com/request',
         {
           ride_id: ride.ride_id
         },

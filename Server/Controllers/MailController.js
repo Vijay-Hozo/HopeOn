@@ -16,7 +16,6 @@ const sendmail = async (req, res) => {
         path: "driver_id",
         select: "driver_email driver_name driver_phone driver_age",
       });
-      console.log(recipient);
       
 
     if (!recipient) {
@@ -65,8 +64,6 @@ const sendmail = async (req, res) => {
       if (error) {
         return console.log(error);
       }
-      console.log("Message sent: %s", info.messageId);
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     });
 
     await DriverRideModel.deleteOne({ ride_id });
@@ -78,5 +75,6 @@ const sendmail = async (req, res) => {
     res.status(500).json({ error: "Failed to send email." });
   }
 };
+
 
 module.exports = { sendmail };

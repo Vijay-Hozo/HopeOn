@@ -14,7 +14,7 @@ const Allrides = () => {
 
   const getRides = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/driverrides");
+      const response = await axios.get("https://hopeon.onrender.com/driverrides");
       setRides(response.data.rides);
     } 
     catch (error) {
@@ -26,12 +26,12 @@ const Allrides = () => {
   };
 
   return (
-    <div className='flex flex-col w-full '>
+    <div className='flex flex-col w-full text-center'>
       <div className='w-full p-2'>
           <Header />
       </div>
-      <div className='flex flex-col justify-center items-center  overflow-y-scroll'>
         <h1 className='text-3xl font-semibold text-blue-950 on hover:text-yellow-400'>All Rides</h1>
+      <div className='flex flex-wrap justify-center items-center '>
       {loading ?
       (
         <div>

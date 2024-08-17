@@ -6,7 +6,7 @@ const HomeLayout = () => {
   return (
     <div>
         <Landingpage />
-        <Footer />
+        {/* <Footer /> */}
         <Outlet />
     </div>
   )
