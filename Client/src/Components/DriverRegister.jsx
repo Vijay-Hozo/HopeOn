@@ -24,7 +24,7 @@ const UserRegister = () => {
   const handleregister = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('https://hopeon.onrender.com/registerdriver', {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/registerdriver`, {
         driver_name: name,
         driver_email: email,
         driver_password: password,

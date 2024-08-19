@@ -15,7 +15,7 @@ const Request = () => {
 
   const getRequest = async () => {
     try {
-      const res = await axios.get('https://hopeon.onrender.com/request', {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/request`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

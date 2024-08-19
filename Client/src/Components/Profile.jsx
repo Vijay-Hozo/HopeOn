@@ -15,7 +15,7 @@ const Profile = () => {
   const getProfile = async () => {
     try {
 
-        const res = await axios.get('https://hopeon.onrender.com/user', {
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

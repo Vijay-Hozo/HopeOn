@@ -29,7 +29,7 @@ const Landingpage = () => {
                 {showDropdown && <Dropdown />}
             </>
             <>
-                <Link to="/footer" ><img src={about} className='w-10 mr-20' /></Link>
+                {/* <Link to="/footer" ><img src={about} className='w-10 mr-20' /></Link> */}
                 <a href="https://avijay.tech/" target='blank'><img src={developer} className='w-10 h-10 mr-20' /> </a> 
             </>
             </div>

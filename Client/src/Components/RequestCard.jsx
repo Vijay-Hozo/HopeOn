@@ -16,7 +16,7 @@ const RequestCard = ({ request }) => {
   //   e.preventDefault()
   //   try {
   //     await axios.put(
-  //       'https://hopeon.onrender.com/request',
+  //       'http://localhost:3000/request',
   //       {
   //         status: 'accept',
   //         ride_id: request.ride_id,
@@ -37,7 +37,7 @@ const RequestCard = ({ request }) => {
   const handleAccept = async (e) => {
     e.preventDefault()
       try{
-        await axios.post('https://hopeon.onrender.com/mail', {
+        await axios.post(`${import.meta.env.VITE_SERVER_URL}/acceptmail`, {
           ride_id: request.ride_id,
         })
         setRequestStatus('accept')
@@ -52,7 +52,7 @@ const RequestCard = ({ request }) => {
   const handleDecline = async (e) => {
     e.preventDefault()
     try {
-      await axios.delete('https://hopeon.onrender.com/request', {
+      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/request`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

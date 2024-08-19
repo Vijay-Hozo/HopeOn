@@ -82,7 +82,7 @@ const Ride = () => {
           date,
         };
 
-        const res = await axios.post("https://hopeon.onrender.com/user/addride", payload, {
+        const res = await axios.post("http://localhost:3000/user/addride", payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           }

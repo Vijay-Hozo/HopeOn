@@ -82,7 +82,7 @@ const Login = () => {
   const handlelogin = async(e)=>{
     e.preventDefault();
     try{
-    const res = await axios.post("https://hopeon.onrender.com/login",{
+    const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/login`,{
         user_email:email,
         user_password:password
     })
@@ -93,6 +93,19 @@ const Login = () => {
     }
     catch(err){
         toast.error(err.response.data.message)
+    }
+}
+
+const handleReset = async(e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/passwordotp`, {
+            user_email: email
+        });
+        toast.success(response.data.message);
+        navigate("/resetpassword");
+    } catch (err) {
+        toast.error(err.response?.data?.message || "Failed to send OTP");
     }
 }
 
@@ -121,7 +134,7 @@ const Login = () => {
                     </div>
 
                 <>
-                    <a href="/forgotpassword" className='text-yellow-400'>Forgot Password?</a>
+                    <button className='text-yellow-400' type='submit' onClick={handleReset}>Forgot Password?</button>
                 </>
 
                 <div className='mt-4 flex items-center justify-center'>
