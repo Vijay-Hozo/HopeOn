@@ -27,7 +27,6 @@ const addservice = async (req, res) => {
     }
 
     const rideDetails = userRides.find(ride => ride.ride_id === ride_id);
-    console.log(rideDetails);
     
 
     if (!rideDetails) {

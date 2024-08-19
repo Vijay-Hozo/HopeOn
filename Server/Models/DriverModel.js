@@ -3,10 +3,6 @@ const bcrypt = require("bcryptjs")
 
 const DriverSchema = new mongoose.Schema(
     {
-        // driver_id : {
-        //     type : String,
-        //     // required : true
-        // },
         driver_name : {
             type : String,
             required : true

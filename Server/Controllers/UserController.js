@@ -1,8 +1,8 @@
 const UserModel = require("../Models/UserModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 const RandomModel = require("../Models/RandomModel");
+const ResetModel = require("../Models/ResetPasswordModel");
 
 const newuser = async (req, res) => {
   const {
@@ -13,7 +13,7 @@ const newuser = async (req, res) => {
     user_age,
     user_gender,
     profile,
-    otp
+    otp,
   } = req.body;
 
   try {
@@ -24,19 +24,11 @@ const newuser = async (req, res) => {
       });
     }
 
-    const exsitingUser = await UserModel.find({user_email})
-    if(exsitingUser){
-      return res.status(400).json({
-        status: "failure",
-        message: "User already exists",
-      })
-    }
 
-    console.log("Looking for OTP for email:", user_email);
-    
     const response = await RandomModel.find()
+      .sort({ createdAt: -1 }).limit(1)
 
-    if(!otp){
+    if (!otp) {
       return res.status(400).json({
         success: false,
         message: "Please enter the OTP",
@@ -49,7 +41,6 @@ const newuser = async (req, res) => {
         message: "The OTP is not valid",
       });
     } else if (otp !== response[0].otp) {
-      console.log("Database OTP:", response[0].otp);
       return res.status(400).json({
         success: false,
         message: "The OTP is not valid",
@@ -71,7 +62,6 @@ const newuser = async (req, res) => {
       message: "User created successfully",
       newuser,
     });
-
   } catch (err) {
     res.status(400).json({
       status: "failure",
@@ -81,8 +71,7 @@ const newuser = async (req, res) => {
   }
 };
 
-
-
+//LOGIN
 const loginuser = async (req, res) => {
   const { user_email, user_password } = req.body;
   try {
@@ -91,36 +80,41 @@ const loginuser = async (req, res) => {
     if (!user) {
       return res.status(401).json({
         status: "failure",
-        message: "user not found",
+        message: "User not found",
       });
     }
+
     const isValidPassword = await bcrypt.compare(
       user_password,
-      user.user_password
+      user.user_password // Make sure this is correct
     );
+
     if (!isValidPassword) {
       return res.status(400).json({
         status: "failure",
         message: "Password is invalid",
       });
     }
+
     const token = jwt.sign({ id: user._id }, "secret_key", {
       expiresIn: "8h",
     });
+    
     res.status(200).json({
       status: "success",
-      message: "user Loggined successfully",
+      message: "User logged in successfully",
       user,
       token,
     });
   } catch (err) {
     res.status(400).json({
       status: "failure",
-      message: "failed to login",
+      message: "Failed to login",
       error: err.message,
     });
   }
 };
+
 
 const getuserbyid = async (req, res) => {
   const user_id = req.user.id;
@@ -146,4 +140,58 @@ const getuserbyid = async (req, res) => {
   }
 };
 
-module.exports = { newuser, loginuser, getuserbyid };
+const changePassword = async (req, res) => {
+  const { user_email, otp, new_password } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ user_email });
+    if (!user) {
+      return res.status(400).json({
+        status: "failure",
+        message: "User not found",
+      });
+    }
+
+    const response = await ResetModel.find()
+      .sort({ createdAt: -1 })
+      .limit(1);
+
+    if (response.length === 0) {
+      return res.status(400).json({
+        status: "failure",
+        message: "OTP not found",
+      });
+    }
+
+    if (otp !== response[0].otp) {
+      return res.status(400).json({
+        status: "failure",
+        message: "OTP is invalid",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(new_password, salt);
+
+    user.user_password = hashedPassword;
+    await user.save();
+
+    await ResetModel.deleteMany({ otp });
+    res.status(200).json({
+      status: "success",
+      message: "Password changed successfully",
+    });
+
+  } catch (err) {
+    console.error("Error changing password:", err);
+    res.status(500).json({
+      status: "failure",
+      message: "Unable to change password",
+      error: err.message,
+    });
+  }
+};
+
+
+
+module.exports = { newuser, loginuser, getuserbyid,changePassword };

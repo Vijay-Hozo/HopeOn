@@ -66,7 +66,6 @@ const getrides = async(req,res)=>{
 const cancelride = async (req, res) => {
     const user_id = req.user.id;
     const ride_id = req.params.id;
-    console.log(user_id,ride_id);
     
   
     try {
