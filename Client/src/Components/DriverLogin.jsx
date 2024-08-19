@@ -5,7 +5,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { driverlogin } from '../Redux/driverSlice'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import DriverHeader from '../Components/DriverHeader'
 
 const PasswordInput = ({ value, onChange }) => {
@@ -70,7 +70,7 @@ const PasswordInput = ({ value, onChange }) => {
   )
 }
 
-const Login = () => {
+const DriverLogin = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
@@ -93,7 +93,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-blue-950">
       <DriverHeader />
       <div className='flex flex-col items-center justify-center text-white text-lg py-4 h-[680px] bg-blue-950 font-semibold bg-gradient-to-b from-background-primary to-background-secondary'>
         <div className='flex items-center gap-2 mb-4'>
@@ -154,7 +154,7 @@ const Login = () => {
             <span className='text-white text-3xl'>New to?</span>
             <Title />
             <span className='text-yellow-400'>
-              <a href='/driverregister'> Register</a>
+              <Link to="/driverregister">Register</Link>
             </span>
           </div>
         </form>
@@ -163,4 +163,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default DriverLogin

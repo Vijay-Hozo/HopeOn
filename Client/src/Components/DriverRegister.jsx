@@ -4,7 +4,7 @@ import Signupimage from '../assets/Image/driversign.svg'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { driverlogin } from '../Redux/driverSlice'
 import DriverHeader from '../Components/DriverHeader'
 
@@ -45,7 +45,7 @@ const UserRegister = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-blue-950">
       <DriverHeader />
       <div className='flex bg-blue-950 text-white'>
       <div>
@@ -175,7 +175,7 @@ const UserRegister = () => {
         <div>
           <span className='text-white'>Already a member?</span>
           <span className='text-yellow-400'>
-            <a href='/driverlogin'> Login</a>
+            <Link to='/driverlogin'>Login</Link>
           </span>
         </div>
       </form>

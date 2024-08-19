@@ -4,7 +4,6 @@ import UserRegister from "./Components/UserRegister";
 import DriverRegister from "./Components/DriverRegister";
 import DriverLogin from "./Components/DriverLogin";
 import Allrides from "./Components/Allrides";
-// import Ride from './Components/Ride'
 import DriverRide from "./Components/DriverRide";
 import Profile from "./Components/Profile";
 import Request from "./Components/Request";
