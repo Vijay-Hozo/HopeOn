@@ -45,7 +45,7 @@ const UserRegister = () => {
   }
 
   return (
-    <div className="min-h-screen bg-blue-950">
+    <div className="min-h-screen bg-blue-950"u>
       <DriverHeader />
       <div className='flex bg-blue-950 text-white'>
       <div>

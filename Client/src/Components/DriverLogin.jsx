@@ -121,7 +121,7 @@ const DriverLogin = () => {
           </div>
 
           <div className='text-yellow-400'>
-            <a href='/forgotpassword'>Forgot Password?</a>
+            <Link to='/forgotpassword'>Forgot Password?</Link>
           </div>
 
           <div className='mt-4 flex items-center justify-center'>
