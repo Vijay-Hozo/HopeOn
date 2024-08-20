@@ -9,7 +9,7 @@ import Dropdown from '../assets/DropDown'
 import about from "../assets/Image/about.svg"
 import Footer from '../Components/Footer'
 import developer from "../assets/Image/developers.svg"
-import {Link} from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 const Landingpage = () => {
     const [showDropdown, setShowDropdown] = useState(false);
