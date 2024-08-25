@@ -41,7 +41,6 @@ const App = () => {
           <Route path="/userlogin" element={<Login />} />
           <Route path="/driverregister" element={<DriverRegister />} />
           <Route path="/driverlogin" element={<DriverLogin />} />
-          <Route path="/driverride" element={<DriverRide />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
 
@@ -51,6 +50,7 @@ const App = () => {
           </Route>
 
           <Route element={<DriverProtectedRoute />}>
+            <Route path="/driverride" element={<DriverRide />} />
             <Route path="/driverprofile" element={<DriverProfile />} />
             <Route path="/request" element={<Request />} />
           </Route>

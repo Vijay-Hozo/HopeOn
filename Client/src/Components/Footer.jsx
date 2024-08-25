@@ -10,7 +10,7 @@ const Footer = () => {
         "Contact us",
         "About us",
         "Careers",
-        "Securiy & Compliance",
+        "Security & Compliance",
       ]
     },
     {
@@ -38,14 +38,13 @@ const Footer = () => {
   ];
 
   return (
-    <div className="bg-blue-900 text-white p-1 w-full">
-    <>
-      <ul className='flex justify-between m-3'>
+    <div className="bg-blue-900 text-white p-4 w-full">
+      <ul className='flex flex-col md:flex-row justify-between m-3'>
         {links.map(({ id, heading, list }) => 
         (
           <li 
             key={id} 
-            className="mb-4">
+            className="mb-4 md:mb-0">
             <h1 className='text-yellow-400 font-semibold'>{heading}</h1>
 
             <ul className="ml-4">
@@ -60,13 +59,12 @@ const Footer = () => {
           </li>
         ))}
       </ul>
-    </>
-    <div className="flex items-center justify-center">
-      <h1>
-        <a href="#" className="hover:underline">© All Rights Reserved {year}</a>
-      </h1>
+      <div className="flex items-center justify-center mt-4">
+        <h1>
+          <a href="#" className="hover:underline">© All Rights Reserved {year}</a>
+        </h1>
+      </div>
     </div>
-  </div>
   );
 };
 
