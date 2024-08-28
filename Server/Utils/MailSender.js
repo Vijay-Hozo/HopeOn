@@ -7,6 +7,7 @@ const mailSender = async (user_email, title, text) => {
             service: "gmail",
             port: 465,
             host: "smtp.gmail.com",
+            secure: true,
             auth: {
                 user: process.env.USER_EMAIL,
                 pass: process.env.USER_PASSWORD

@@ -82,6 +82,7 @@ const managerequest = async (req, res) => {
 
     request.status = status
     await request.save()
+    await RequestModel.deleteOne({ ride_id })
 
     if (ride) {
       await DriverRideModel.deleteOne({ ride_id })
