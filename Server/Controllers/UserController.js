@@ -86,7 +86,7 @@ const loginuser = async (req, res) => {
 
     const isValidPassword = await bcrypt.compare(
       user_password,
-      user.user_password // Make sure this is correct
+      user.user_password 
     );
 
     if (!isValidPassword) {
@@ -141,7 +141,7 @@ const getuserbyid = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
-  const { user_email, otp, new_password } = req.body;
+  const { user_email, otp, user_password } = req.body;
 
   try {
     const user = await UserModel.findOne({ user_email });
@@ -152,9 +152,10 @@ const changePassword = async (req, res) => {
       });
     }
 
-    const response = await ResetModel.find()
+    const response = await ResetModel.findOne({user_email})
       .sort({ createdAt: -1 })
       .limit(1);
+      // console.log(response);
 
     if (response.length === 0) {
       return res.status(400).json({
@@ -163,7 +164,7 @@ const changePassword = async (req, res) => {
       });
     }
 
-    if (otp !== response[0].otp) {
+    if (otp !== response.otp) {
       return res.status(400).json({
         status: "failure",
         message: "OTP is invalid",
@@ -171,10 +172,12 @@ const changePassword = async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(new_password, salt);
+    const hashedPassword = await bcrypt.hash(user_password, salt);
+    // console.log(hashedPassword);
+    
 
-    user.user_password = hashedPassword;
-    await user.save();
+    await UserModel.findOneAndUpdate({user_email},{user_password:hashedPassword});
+    // await user.save();
 
     await ResetModel.deleteMany({ otp });
     res.status(200).json({

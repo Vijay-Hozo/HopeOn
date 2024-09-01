@@ -6,6 +6,6 @@ const UserAuth = require("../Middleware/UserAuth")
 Router.post("/register",UserController.newuser);
 Router.post("/login",UserController.loginuser);
 Router.get("/user",UserAuth,UserController.getuserbyid);
-Router.post("/reset",UserController.changePassword);
+Router.put("/reset",UserController.changePassword);
 
 module.exports = Router;
