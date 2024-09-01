@@ -17,7 +17,7 @@ const DriverHeader = (props) => {
   }
 
   return (
-    <div className='flex justify-between w-full p-2 bg-slate-50 text-xl text-blue-600 font-semibold'>
+    <div className='flex justify-between w-full p-2 bg-slate-50 text-xl text-blue-950 font-semibold'>
       
       <div>
         <Link to='/'>
@@ -29,15 +29,15 @@ const DriverHeader = (props) => {
         <ul className='flex justify-between gap-12'>
 
             <Link to='/driverride'>
-                <img src={addicon} alt='addicon' className='w-12 h-10' />
+                <h1>Post Ride</h1>
             </Link>
 
             <Link to='/request'>
-                <img src={requestimage} alt='addicon' className='w-10 h-10' />
+                <h1>Request</h1>
             </Link>
 
           <Link to='/driverprofile'>
-              <img src={profile} alt='profile' className='w-8 h-8' />
+              <h1>Profile</h1>
           </Link>
 
           {drivertoken ? (

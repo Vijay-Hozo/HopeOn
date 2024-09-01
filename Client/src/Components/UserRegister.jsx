@@ -61,12 +61,12 @@ const UserRegister = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-col md:flex-row bg-blue-950 text-white">
+      <div className="flex flex-col md:flex-row  text-white">
         <div className="w-full md:w-1/2 flex justify-center items-center p-6">
           <img
             src={Signupimage}
             alt="Sign Up"
-            className="w-full h-auto max-w-md hidden md:block"
+            className="w-full h-auto max-w-xl hidden md:block"
           />
         </div>
 
@@ -78,84 +78,54 @@ const UserRegister = () => {
             <h2 className="text-3xl font-bold text-center text-blue-950 mb-6">
               Register
             </h2>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="name"
-              >
-                Name
-              </label>
+            <div className="mb-6">
               <input
                 type="text"
                 id="name"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Your Sweet Name"
+                className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
+                placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
-              >
-                Email
-              </label>
+            <div className="mb-6">
               <input
                 type="email"
                 id="email"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Precious Email"
+                className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="phone"
-              >
-                Phone
-              </label>
+            <div className="mb-6">
               <input
                 type="tel"
                 id="phone"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Secret Number"
+                className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
+                placeholder="Number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="age"
-              >
-                Age
-              </label>
+            <div className="mb-6">
               <input
                 type="number"
                 id="age"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Youthful Age"
+                className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
+                placeholder="Age"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 required
               />
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="gender"
-              >
-                Gender
-              </label>
+            <div className="mb-6">
               <select
                 id="gender"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
                 required
@@ -165,17 +135,11 @@ const UserRegister = () => {
                 <option value="Female">Female</option>
               </select>
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="password"
-              >
-                Password
-              </label>
+            <div className="mb-6">
               <input
                 type="password"
                 id="password"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -211,7 +175,7 @@ const UserRegister = () => {
               </Link>
             </div>
             <div className="text-center mt-4">
-              <button
+              {/* <button
                 type="button"
                 className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
               >
@@ -229,7 +193,7 @@ const UserRegister = () => {
                   />
                 </svg>
                 Sign in with Google
-              </button>
+              </button> */}
             </div>
           </form>
         </div>

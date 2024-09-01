@@ -6,7 +6,7 @@ import bike from "../assets/Image/share.svg";
 import search from "../assets/Image/search.svg";
 import menu from "../assets/Image/menu.svg";
 import Dropdown from '../assets/DropDown';
-import about from "../assets/Image/about.svg";
+// import about from "../assets/Image/about.svg";
 import Footer from '../Components/Footer';
 import developer from "../assets/Image/developers.svg";
 import { Link } from 'react-router-dom';
@@ -24,10 +24,10 @@ const Landingpage = () => {
                 <div className="ml-4 md:ml-10">
                     <Title />
                 </div>
-                <div className='flex items-center'>
+                <div className='flex items-center gap-6 text-xl font-semibold text-blue-950'>
                     <>
-                        <img src={menu} className='w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-20' onClick={handlemenu} />
-                        {showDropdown && <Dropdown />}
+                        <Link to="/userlogin">User Login</Link>
+                        <Link to="/driverlogin">Rider Login</Link>
                     </>
                     <>
                         <a href="https://avijay.tech/" target='blank'><img src={developer} className='w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-20' /> </a>

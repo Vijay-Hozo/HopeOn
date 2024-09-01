@@ -19,7 +19,7 @@ const Header = (props) => {
   }
 
   return (
-    <div className='flex justify-between w-full p-2 bg-slate-50 text-xl  font-semibold'>
+    <div className='flex justify-between w-full p-2 bg-slate-50 text-xl text-blue-950 font-semibold'>
       
       <div>
         <Link to='/'>
@@ -31,11 +31,11 @@ const Header = (props) => {
         <ul className='flex justify-between gap-12'>
 
           <Link to='/allrides'>
-            <img src={rideimage} className="w-8" alt='ride' />
+            <h1>All Rides</h1>
           </Link>
 
           <Link to='/profile'>
-              <img src={profile} alt='profile' className='w-8 h-8' />
+            <h1>Profile</h1>
           </Link>
 
           {token ? (

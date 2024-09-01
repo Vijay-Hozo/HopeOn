@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../Redux/userSlice";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Header from "../Components/Header";
+import loginimage from "../assets/Image/new_login.svg";
 
 const PasswordInput = ({ value, onChange }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -20,7 +21,7 @@ const PasswordInput = ({ value, onChange }) => {
       <input
         type={isPasswordVisible ? "text" : "password"}
         placeholder="Password"
-        className="w-full text-black px-4 py-2 text-base border border-gray-300 rounded-2xl outline-none focus:ring-blue-500 focus:border-blue-500 focus:ring-1"
+        className="w-full border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
         value={value}
         onChange={onChange}
       />
@@ -104,86 +105,86 @@ const Login = () => {
         }
       );
       toast.success(response.data.message);
-      navigate("/resetpassword");
+      navigate("/resetpassword" ,{state: {email}});
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to send OTP");
     }
   };
 
   return (
-    <div className="min-h-screen bg-blue-950">
+    <div className="min-h-screen ">
       <Header />
-      <div className="flex flex-col items-center justify-center text-lg py-4 h-[680px] bg-blue-950 font-semibold text-white ">
-        <div className="flex items-center gap-2 mb-4">
-          <h1 className="text-3xl">Back To Ride With </h1>
-          <Title />
+      <div className="flex flex-col md:flex-row items-center justify-around w-full p-10 mr-20">
+        <div className="w-1/2 flex justify-center">
+          <img
+            src={loginimage}
+            alt="Sign Up"
+            className="w-full h-auto max-w-lg md:max-w-[500px] md:h-[600px] object-cover hidden md:block"
+          />
         </div>
-
-        <form onSubmit={handlelogin} className="gap-4 my-4">
-          <div className="flex flex-col">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              placeholder="Email"
-              className='"w-full text-black px-4 py-2 text-base border border-gray-300 rounded-2xl outline-none focus:ring-blue-500 focus:border-blue-500 focus:ring-1'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col mt-6">
-            <label>Password</label>
-            <PasswordInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+        <div className="flex flex-col items-center justify-center text-blue-950 text-lg py-4 h-[680px] bg-white font-semibold bg-gradient-to-b from-background-primary to-background-secondary">
+          <div className="flex items-center gap-2 mb-4">
+            <h1 className="text-3xl">Back As User For</h1>
+            <Title />
           </div>
 
-          <>
-            <button
-              className="text-yellow-400"
-              type="submit"
-              onClick={handleReset}
-            >
-              Forgot Password?
-            </button>
-          </>
+          <form onSubmit={handlelogin} className="gap-4 my-4">
+            <div className="flex flex-col">
+              <input
+                type="email"
+                placeholder="Email"
+                className="border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-6">
+              {/* <label>Password</label> */}
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-          <div className="mt-4 flex items-center justify-center">
-            <Button type="submit">Login</Button>
-          </div>
+            <div className="text-yellow-500">
+              <Link to="/forgotpassword" onClick={handleReset}>Forgot Password?</Link>
+            </div>
 
-          <div className="flex flex-col items-center">
-            <h1 className="text-center my-4">or</h1>
-            <button
-              type="button"
-              className="text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
-            >
-              <svg
-                className="w-4 h-4 me-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 18 19"
+            <div className="mt-4 flex items-center justify-center">
+              <Button type="submit">Login</Button>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <h1 className="text-center my-4">or</h1>
+              {/* <button
+                type="button"
+                className="text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Sign in with Google
-            </button>
-          </div>
-          <div className="flex items-center gap-3 mt-5">
-            <span className=" text-2xl">New to?</span>
-            <span>
+                <svg
+                  className="w-4 h-4 me-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 18 19"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Sign in with Google
+              </button> */}
+            </div>
+            <div className="flex items-center gap-3 mt-5">
+              <span className="text-2xl">New to?</span>
               <Title />
-            </span>
-            <span className="text-yellow-400">
-              <Link to="/userregister"> Register </Link>
-            </span>
-          </div>
-        </form>
+              <span className="text-yellow-500">
+                <Link to="/userregister">Register</Link>
+              </span>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

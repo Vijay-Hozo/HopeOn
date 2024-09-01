@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../assets/Button";
 
@@ -10,6 +10,13 @@ const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const location = useLocation();
+
+  useEffect(()=>{
+    if(location.state?.email){
+      setEmail(location.state.email);
+    }
+  },[location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +27,7 @@ const ResetPassword = () => {
     }
     try {
       console.log(otp, email, newPassword);
-      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/reset`, {
+      const response = await axios.put(`${import.meta.env.VITE_SERVER_URL}/reset`, {
         user_email: email,
         otp: otp,
         user_password: newPassword,
@@ -66,7 +73,7 @@ const ResetPassword = () => {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            readOnly
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
