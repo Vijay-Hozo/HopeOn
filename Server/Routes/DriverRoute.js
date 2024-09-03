@@ -6,5 +6,6 @@ const DriverAuth = require("../Middleware/DriverAuth")
 Router.post("/registerdriver",DriverController.newdriver);
 Router.post("/logindriver",DriverController.logindriver)
 Router.get("/driver",DriverAuth,DriverController.getdriverbyid)
+Router.put("/password",DriverController.changeDriverPassword)
 
 module.exports = Router;

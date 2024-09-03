@@ -75,6 +75,72 @@ const sendotp = async (req, res) => {
   }
 };
 
+const driververify = async (req, res) => {
+  const { driver_email } = req.body;
+  try {
+    if (!driver_email) {
+      return res.status(400).json({
+        status: "failure",
+        message: "Please provide driver email",
+      });
+    }
+
+    const driver = await DriverModel.findOne({ driver_email });
+    if (!driver) {
+      return res.status(404).json({
+        status: "failure",
+        message: "Driver not found",
+      });
+    }
+    let otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+    let result = await RandomModel.findOne({ otp });
+    while (result) {
+      otp = otpGenerator.generate(6, { upperCaseAlphabets: false });
+      result = await RandomModel.findOne({ otp });
+    }
+    const otppayload = { driver_email, otp };
+    const otpbody = await RandomModel.create(otppayload);
+    const emailBody = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+          <h2 style="color: #1a73e8;">Welcome to HopOn!</h2>
+          <p>Dear Rider,</p>
+      
+          <p>We are excited to have you join our community. To complete your registration, please use the OTP below to verify your email address:</p>
+      
+          <p style="font-size: 20px; color: #1a73e8;"><strong>${otp}</strong></p>
+      
+          <p>This OTP is valid for the next 10 minutes. Please enter it in the required field to complete your verification process.</p>
+      
+          <p>If you did not initiate this request, please ignore this email or contact our support team immediately.</p>
+      
+          <p>Thank you for choosing HopOn. We look forward to providing you with the best ride-sharing experience.</p>
+      
+          <p style="font-weight: bold;">Best regards,<br>HopOn Team</p>
+      
+          <hr style="border: none; border-top: 1px solid #ccc;" />
+      
+          <p style="font-size: 12px; color: #777;">This email was sent to you by HopOn. If you did not sign up for this service, please disregard this email.</p>
+        </div>
+      `;
+    await mailSender(driver_email, "Your OTP Code", emailBody);
+    res.status(200).json({
+      status: "success",
+      message: "OTP sent successfully",
+      // otpbody
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "failure",
+      message: "Unable to send OTP",
+      error: err.message,
+    });
+  }
+};
+
 const passwordotp = async (req, res) => {
   try {
     const { user_email } = req.body;
@@ -131,6 +197,72 @@ const passwordotp = async (req, res) => {
   }
 };
 
+const driverpasswordotp = async (req, res) => {
+  const { driver_email } = req.body;
+  try {
+    if (!driver_email) {
+      return res.status(400).json({
+        status: "failure",
+        message: "Please provide driver email",
+      });
+    }
+    const driver = await DriverModel.findOne({ driver_email });
+    if (!driver) {
+      return res.status(404).json({
+        status: "failure",
+        message: "Driver not found",
+      });
+    }
+    let otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+    let result = await RandomModel.findOne({ otp });
+    while (result) {
+      otp = otpGenerator.generate(6, { upperCaseAlphabets: false });
+      result = await RandomModel.findOne({ otp });
+    }
+    const otppayload = { driver_email, otp };
+    const otpbody = await RandomModel.create(otppayload);
+
+    const emailBody = `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <h2 style="color: #d9534f;">Password Reset Request</h2>
+    <p>Dear Rider,</p>
+
+    <p>We received a request to reset the password associated with your HopOn account. Please use the OTP below to proceed with resetting your password:</p>
+
+    <p style="font-size: 20px; color: #d9534f;"><strong>${otp}</strong></p>
+
+    <p>This OTP is valid for the next 10 minutes. Please ensure you enter it in the required field to complete the password reset process.</p>
+
+    <p>If you did not request a password reset, please ignore this email or contact our support team immediately to secure your account.</p>
+
+    <p>Your security is our priority. We recommend updating your password regularly and ensuring it is strong and unique.</p>
+
+    <p style="font-weight: bold;">Best regards,<br>HopOn Team</p>
+
+    <hr style="border: none; border-top: 1px solid #ccc;" />
+
+    <p style="font-size: 12px; color: #777;">This email was sent to you because a password reset request was made for your HopOn account. If you did not initiate this request, please contact our support team.</p>
+  </div>
+`;
+    await mailSender(driver_email, "Your OTP Code", emailBody);
+    res.status(200).json({
+      status: "success",
+      message: "OTP sent successfully",
+      // otpbody
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "failure",
+      message: "Unable to send OTP",
+      error: err.message,
+    });
+  }
+};
+
 const acceptmail = async (req, res) => {
   const { ride_id } = req.body;
   const title = "Ride Request Accepted";
@@ -176,7 +308,6 @@ const acceptmail = async (req, res) => {
     Best regards,
     <br><strong>HopOn Team</strong>
   `;
-  
 
     await mailSender(user_email, title, text);
     await RequestModel.findOneAndUpdate({ ride_id }, { status: "accept" });
@@ -194,4 +325,4 @@ const acceptmail = async (req, res) => {
   }
 };
 
-module.exports = { sendotp, passwordotp, acceptmail };
+module.exports = { sendotp, passwordotp, acceptmail, driververify, driverpasswordotp };
