@@ -29,7 +29,7 @@ const DriverHeader = (props) => {
         <ul className='flex justify-between gap-12'>
 
             <Link to='/driverride'>
-                <h1>Post Ride</h1>
+                <h1 className='ml-4 sm:text-xl'>Post Ride</h1>
             </Link>
 
             <Link to='/request'>

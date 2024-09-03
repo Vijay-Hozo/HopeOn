@@ -26,7 +26,7 @@ const Landingpage = () => {
                 </div>
                 <div className='flex items-center gap-6 text-xl font-semibold text-blue-950'>
                     <>
-                        <Link to="/userlogin">User Login</Link>
+                        <Link to="/userlogin" className='ml-4 md:ml-10 '>User Login</Link>
                         <Link to="/driverlogin">Rider Login</Link>
                     </>
                     <>

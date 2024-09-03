@@ -96,6 +96,20 @@ const DriverLogin = () => {
     }
   };
 
+  const handleReset = (e) => {
+    e.preventDefault();
+    try{
+      axios.post(`${import.meta.env.VITE_SERVER_URL}/driverpassword`,{
+        driver_email: email,
+      })
+      toast.success("OTP sent successfully! Check your email");
+      navigate("/resetpassword",{state: {email}});
+    }
+    catch(err){
+      toast.error(err.response?.data?.message || "Failed to send OTP");
+    }
+  }
+
   return (
     <div className="min-h-screen">
       <DriverHeader />
@@ -109,7 +123,7 @@ const DriverLogin = () => {
         </div>
         <div className="flex flex-col items-center justify-center text-blue-950 text-lg py-4 h-[680px] bg-white font-semibold bg-gradient-to-b from-background-primary to-background-secondary">
           <div className="flex items-center gap-2 mb-4">
-            <h1 className="text-3xl">Back As Rider For</h1>
+            <h1 className="text-3xl">Rider For</h1>
             <Title />
           </div>
 
@@ -132,7 +146,7 @@ const DriverLogin = () => {
             </div>
 
             <div className="text-yellow-400">
-              <Link to="/forgotpassword">Forgot Password?</Link>
+              <Link to="/forgotpassword" onClick={handleReset}>Forgot Password?</Link>
             </div>
 
             <div className="mt-4 flex items-center justify-center">

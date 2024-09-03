@@ -124,7 +124,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col items-center justify-center text-blue-950 text-lg py-4 h-[680px] bg-white font-semibold bg-gradient-to-b from-background-primary to-background-secondary">
           <div className="flex items-center gap-2 mb-4">
-            <h1 className="text-3xl">Back As User For</h1>
+            <h1 className="text-3xl">User For</h1>
             <Title />
           </div>
 

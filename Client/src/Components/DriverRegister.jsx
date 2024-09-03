@@ -20,6 +20,7 @@ const UserRegister = () => {
   const [governmentid, setgovernmentid] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
+  const [otp, setOtp] = useState("");
 
   const handleregister = async (e) => {
     e.preventDefault();
@@ -35,6 +36,7 @@ const UserRegister = () => {
           government_id: governmentid,
           vehicle_number: vehicle,
           profile_photo: profilePhoto,
+          otp: otp,
         }
       );
       toast.success("Driver registered");
@@ -45,6 +47,21 @@ const UserRegister = () => {
       toast.error(err.response.data.message);
     }
   };
+
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/driverotp`,
+        {
+          driver_email: email,
+        }
+      );
+      toast.success("OTP sent successfully! Check your email");
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  }
 
   return (
     <div className="min-h-screen w-ful">
@@ -124,8 +141,26 @@ const UserRegister = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+             <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="otp"
+              >
+                OTP
+              </label>
+              <input
+                type="text"
+                id="otp"
+                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+              />
+            </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 gap-10 flex justify-between">
+          <Button onClick={handleVerify}>Verify Email</Button>
             <Button
               type="submit"
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md"

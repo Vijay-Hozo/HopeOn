@@ -14,7 +14,7 @@ const DriverprofileCard = ({ Driverprofile }) => {
   return (
     <div className='flex justify-center  items-center'>
 
-      <div className='flex flex-col w-[500px] p-10 bg-slate-200 text-xl rounded-3xl text-blue-950 font-semibold gap-4'>
+      <div className='flex flex-col w-[500px] p-10 bg-slate-200 text-xl rounded-3xl text-blue-950 font-semibold gap-4 ml-12 sm:min-h-screen'>
 
         <div className='flex items-center gap-10'>
           <img src={Profile?.profile} className='w-16' alt='Name Icon' />
