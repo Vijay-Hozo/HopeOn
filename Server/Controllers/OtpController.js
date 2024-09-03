@@ -5,6 +5,7 @@ const ResetModel = require("../Models/ResetPasswordModel");
 const mailSender = require("../Utils/MailSender");
 const RequestModel = require("../Models/RequestModel");
 const DriverRideModel = require("../Models/DriverRideModel");
+const DriverModel = require("../Models/DriverModel");
 
 const sendotp = async (req, res) => {
   try {
