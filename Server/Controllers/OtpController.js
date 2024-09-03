@@ -3,6 +3,7 @@ const RandomModel = require("../Models/RandomModel");
 const UserModel = require("../Models/UserModel");
 const ResetModel = require("../Models/ResetPasswordModel");
 const mailSender = require("../Utils/MailSender");
+const mailsender = require("../Utils/MailSender");
 const RequestModel = require("../Models/RequestModel");
 const DriverRideModel = require("../Models/DriverRideModel");
 const DriverModel = require("../Models/DriverModel");
@@ -85,14 +86,15 @@ const driververify = async (req, res) => {
         message: "Please provide driver email",
       });
     }
-
-    const driver = await DriverModel.findOne({ driver_email });
-    if (!driver) {
-      return res.status(404).json({
-        status: "failure",
-        message: "Driver not found",
-      });
-    }
+    console.log(driver_email);
+    
+    // const driver = await DriverModel.findOne({ driver_email });
+    // if (!driver) {
+    //   return res.status(404).json({
+    //     status: "failure",
+    //     message: "Driver not found",
+    //   });
+    // }
     let otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       lowerCaseAlphabets: false,
@@ -127,7 +129,7 @@ const driververify = async (req, res) => {
           <p style="font-size: 12px; color: #777;">This email was sent to you by HopOn. If you did not sign up for this service, please disregard this email.</p>
         </div>
       `;
-    await mailSender(driver_email, "Your OTP Code", emailBody);
+    await mailsender(driver_email, "Your OTP Code", emailBody);
     res.status(200).json({
       status: "success",
       message: "OTP sent successfully",
@@ -249,7 +251,7 @@ const driverpasswordotp = async (req, res) => {
     <p style="font-size: 12px; color: #777;">This email was sent to you because a password reset request was made for your HopOn account. If you did not initiate this request, please contact our support team.</p>
   </div>
 `;
-    await mailSender(driver_email, "Your OTP Code", emailBody);
+    await mailsender(driver_email, "Your OTP Code", emailBody);
     res.status(200).json({
       status: "success",
       message: "OTP sent successfully",
