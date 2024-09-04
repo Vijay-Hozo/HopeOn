@@ -100,12 +100,16 @@ const driververify = async (req, res) => {
       lowerCaseAlphabets: false,
       specialChars: false,
     });
+    console.log(otp);
+    
     let result = await RandomModel.findOne({ otp });
     while (result) {
       otp = otpGenerator.generate(6, { upperCaseAlphabets: false });
       result = await RandomModel.findOne({ otp });
     }
     const otppayload = { driver_email, otp };
+    console.log(otppayload);
+    
     const otpbody = await RandomModel.create(otppayload);
     const emailBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">

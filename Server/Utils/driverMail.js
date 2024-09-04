@@ -18,6 +18,8 @@ const mailsender = async (driver_email, title, text) => {
             subject: title,
             html: text
         }
+        console.log(mailOptions);
+        
         await transporter.sendMail(mailOptions)
     }
     catch(err){
