@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const mailSender = async (user_email, title, text) => {
+const mailsender = async (driver_email, title, text) => {
     try{
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -14,7 +14,7 @@ const mailSender = async (user_email, title, text) => {
         })
         const mailOptions = {
             from: process.env.USER_EMAIL,
-            to: user_email,
+            to: driver_email,
             subject: title,
             html: text
         }
@@ -25,4 +25,4 @@ const mailSender = async (user_email, title, text) => {
     }
 }
 
-module.exports = mailSender;
+module.exports = mailsender;
