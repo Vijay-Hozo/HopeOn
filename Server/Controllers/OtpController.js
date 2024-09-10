@@ -86,21 +86,12 @@ const driververify = async (req, res) => {
         message: "Please provide driver email",
       });
     }
-    console.log(driver_email);
-    
-    // const driver = await DriverModel.findOne({ driver_email });
-    // if (!driver) {
-    //   return res.status(404).json({
-    //     status: "failure",
-    //     message: "Driver not found",
-    //   });
-    // }
+  
     let otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       lowerCaseAlphabets: false,
       specialChars: false,
     });
-    console.log(otp);
     
     let result = await RandomModel.findOne({ otp });
     while (result) {
@@ -108,7 +99,6 @@ const driververify = async (req, res) => {
       result = await RandomModel.findOne({ otp });
     }
     const otppayload = { driver_email, otp };
-    console.log(otppayload);
     
     const otpbody = await RandomModel.create(otppayload);
     const emailBody = `
@@ -133,6 +123,7 @@ const driververify = async (req, res) => {
           <p style="font-size: 12px; color: #777;">This email was sent to you by HopOn. If you did not sign up for this service, please disregard this email.</p>
         </div>
       `;
+      
     await mailsender(driver_email, "Your OTP Code", emailBody);
     res.status(200).json({
       status: "success",

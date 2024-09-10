@@ -6,11 +6,9 @@ const mailsender = require("../Utils/driverMail");
 const otpSchema = new mongoose.Schema({
     user_email: {
         type: String,
-        required: true,
     },
     driver_email:{
         type: String,
-        required: true,
     },
     otp: {
         type: String,
@@ -51,6 +49,7 @@ async function sendVerification(driver_email,otp) {
             <p>Thank you for choosing HopOn! We're looking forward to being a part of your journey.Best regards,
             The HopOn Team</p>`
         )
+        console.log(mailResponse);
     }
     catch(err){
         console.log(err)
