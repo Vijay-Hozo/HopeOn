@@ -40,7 +40,7 @@ async function sendVerificationEmail(user_email,otp) {
     }
 }
 
-async function sendVerification(user_email,otp) {
+async function sendVerification(driver_email,otp) {
     try{
         const mailResponse = await mailsender(
             driver_email,
