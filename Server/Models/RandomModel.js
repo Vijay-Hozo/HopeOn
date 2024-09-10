@@ -49,7 +49,6 @@ async function sendVerification(driver_email,otp) {
             <p>Thank you for choosing HopOn! We're looking forward to being a part of your journey.Best regards,
             The HopOn Team</p>`
         )
-        console.log(mailResponse);
     }
     catch(err){
         console.log(err)
