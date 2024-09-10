@@ -123,7 +123,7 @@ const driververify = async (req, res) => {
           <p style="font-size: 12px; color: #777;">This email was sent to you by HopOn. If you did not sign up for this service, please disregard this email.</p>
         </div>
       `;
-      
+      d
     await mailsender(driver_email, "Your OTP Code", emailBody);
     res.status(200).json({
       status: "success",

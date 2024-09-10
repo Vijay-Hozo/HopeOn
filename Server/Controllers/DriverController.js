@@ -41,7 +41,8 @@ const newdriver = async(req,res) => {
               driver_age,
               government_id,
               vehicle_number,
-              profile_photo
+              profile_photo,
+              otp
        })
          res.status(200).json({
               status:"success",
