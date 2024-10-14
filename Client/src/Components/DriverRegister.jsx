@@ -19,7 +19,7 @@ const UserRegister = () => {
   const [age, setAge] = useState("");
   const [governmentid, setgovernmentid] = useState("");
   const [vehicle, setVehicle] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState("");
+  // const [profilePhoto, setProfilePhoto] = useState("");
   const [otp, setOtp] = useState("");
 
   const handleregister = async (e) => {
@@ -35,14 +35,16 @@ const UserRegister = () => {
           driver_age: age,
           government_id: governmentid,
           vehicle_number: vehicle,
-          profile_photo: profilePhoto,
+          // profile_photo: profilePhoto,
           otp: otp,
         }
+        
       );
+      console.log(otp);
       toast.success("Driver registered");
       dispatch(driverlogin(res.data.drivertoken));
       localStorage.setItem("drivertoken", res.data.drivertoken);
-      navigate("/driverride");
+      navigate("/driverlogin");
     } catch (err) {
       toast.error(err.response.data.message);
     }
@@ -56,7 +58,9 @@ const UserRegister = () => {
         {
           driver_email: email,
         }
+        
       );
+      console.log(driver_email);
       toast.success("OTP sent successfully! Check your email");
     } catch (err) {
       toast.error(err.response.data.message);
@@ -129,11 +133,11 @@ const UserRegister = () => {
               value={vehicle}
               onChange={(e) => setVehicle(e.target.value)}
             />
-            <input
+            {/* <input
               type="file"
               className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
               onChange={(e) => setProfilePhoto(e.target.files[0])}
-            />
+            /> */} 
             <input
               type="password"
               className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
@@ -141,7 +145,7 @@ const UserRegister = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-             <div className="mb-4">
+             <div className="mb-4 flex items-center gap-6">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="otp"

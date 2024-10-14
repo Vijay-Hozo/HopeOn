@@ -5,8 +5,9 @@ import errorimage from "../assets/Image/nothing.svg";
 import Header from '../Components/Header';
 
 const Allrides = () => {
-  const [rides, setRides] = useState([]); // Initialize with an empty array
+  const [rides, setRides] = useState([]); 
   const [loading, setLoading] = useState(true); 
+
 
   useEffect(() => {
     getRides();
@@ -15,7 +16,7 @@ const Allrides = () => {
   const getRides = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/driverrides`);
-      setRides(response.data.rides || []); // Ensure rides is always an array
+      setRides(response.data.rides || []);
     } 
     catch (error) {
       console.error('Error fetching ride data:', error);
@@ -29,6 +30,7 @@ const Allrides = () => {
     <div className='flex flex-col w-full text-center'>
       <div className='w-full p-2'>
           <Header />
+      <hr className='border-blue-300 border-y-2'/>
       </div>
       <h1 className='text-3xl font-semibold text-blue-950 on hover:text-yellow-400'>All Rides</h1>
       <div className='flex flex-wrap justify-center items-center'>

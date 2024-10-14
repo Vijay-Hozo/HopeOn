@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
 import Title from '../assets/Title'
 import { Link } from 'react-router-dom'
@@ -7,9 +7,29 @@ import profile from '../assets/Image/profile.svg'
 import logout from '../assets/Image/logout.svg'
 import loginimage from '../assets/Image/login.svg'
 import requestimage from "../assets/Image/request.svg"
+import axios from 'axios'
 
 const DriverHeader = (props) => {
   const drivertoken = useSelector((state) => state.driver.drivertoken)
+
+  const[driver_name,setDrivername] = useState(" ");
+  useEffect(()=>{ 
+    getdriverbyid();
+  },[]);
+
+  const getdriverbyid = async() => {
+    try{
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/driver`,{
+        headers:{
+          Authorization :`Bearer ${drivertoken}`
+        }
+      })
+      console.log(res.data);
+      setDrivername(res.data.user.driver_name);
+    }catch(err){
+      console.log("error");
+    }
+  }
 
   const handleLogout = () => {
       localStorage.removeItem('driverToken')
@@ -29,19 +49,17 @@ const DriverHeader = (props) => {
         <ul className='flex justify-between gap-12'>
 
             <Link to='/driverride'>
-                <h1 className='ml-4 sm:text-xl'>Post Ride</h1>
+            <button className='bg-blue-600 rounded-md p-2 text-white'>Post ride</button>
             </Link>
 
             <Link to='/request'>
-                <h1>Request</h1>
+            <button className='bg-blue-600 rounded-md p-2 text-white'>Request</button>
             </Link>
 
-          <Link to='/driverprofile'>
-              <h1>Profile</h1>
-          </Link>
-
           {drivertoken ? (
-            <Link to='/'>
+            <div className='flex items-center gap-6'>
+              <Link to="/driverprofile"><h1 className=''>Welcome {driver_name}</h1></Link>
+              <Link to='/'>
                 <img
                   src={logout}
                   alt=''
@@ -49,6 +67,7 @@ const DriverHeader = (props) => {
                   onClick={handleLogout}
                 />
             </Link>
+            </div>
           ) : (
             <Link to='/driverlogin'>
                 <img src={loginimage} alt='' className='w-8' />

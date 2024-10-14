@@ -179,8 +179,8 @@ const Login = () => {
             <div className="flex items-center gap-3 mt-5">
               <span className="text-2xl">New to?</span>
               <Title />
-              <span className="text-yellow-500">
-                <Link to="/userregister">Register</Link>
+              <span className="text-white">
+                <Link to="/userregister"><button className="p-2 bg-blue-600 rounded-md">Register</button></Link>
               </span>
             </div>
           </form>

@@ -26,11 +26,8 @@ const Landingpage = () => {
                 </div>
                 <div className='flex items-center gap-6 text-xl font-semibold text-blue-950'>
                     <>
-                        <Link to="/userlogin" className='ml-4 md:ml-10 '>User Login</Link>
-                        <Link to="/driverlogin">Rider Login</Link>
-                    </>
-                    <>
-                        <a href="https://avijay.tech/" target='blank'><img src={developer} className='w-8 h-8 md:w-10 md:h-10 mr-4 md:mr-20' /> </a>
+                        <Link to="/userlogin" className='ml-4 md:ml-10 '><button className='bg-blue-600 rounded-md p-2 text-white'>User Login</button></Link>
+                        <Link to="/driverlogin"><button className='bg-blue-600 rounded-md p-2 text-white'>Driver Login</button></Link>
                     </>
                 </div>
             </div>

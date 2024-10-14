@@ -145,7 +145,7 @@ const DriverLogin = () => {
               />
             </div>
 
-            <div className="text-yellow-400">
+            <div className="text-blue-900">
               <Link to="/forgotpassword" onClick={handleReset}>Forgot Password?</Link>
             </div>
 
@@ -154,7 +154,7 @@ const DriverLogin = () => {
             </div>
 
             <div className="flex flex-col items-center">
-              <h1 className="text-center my-4">or</h1>
+              <h1 className="text-center">or</h1>
               {/* <button
                 type="button"
                 className="text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
@@ -175,11 +175,11 @@ const DriverLogin = () => {
                 Sign in with Google
               </button> */}
             </div>
-            <div className="flex items-center gap-3 mt-5">
+            <div className="flex items-center gap-3">
               <span className="text-2xl">New to?</span>
               <Title />
-              <span className="text-yellow-400">
-                <Link to="/driverregister">Register</Link>
+              <span className="text-white">
+                <Link to="/driverregister"> <button className="p-2 bg-blue-600 rounded-md">Register</button> </Link>
               </span>
             </div>
           </form>

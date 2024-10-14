@@ -33,10 +33,8 @@ const App = () => {
       <ToastContainer />
       <BrowserRouter>
         <Routes>
-          {/* <Route path = "/" element = {<HomeLayout />} > */}
 
           <Route path="/" element={<Landingpage />} />
-          {/* <Route path = "/ride" element = {<Ride />} /> */}
           <Route path="/userregister" element={<UserRegister />} />
           <Route path="/userlogin" element={<Login />} />
           <Route path="/driverregister" element={<DriverRegister />} />

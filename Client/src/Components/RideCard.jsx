@@ -10,6 +10,11 @@ import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 const RideCard = ({ ride }) => {
+  const formatDate = (dateString) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  };
   const [requestStatus, setRequestStatus] = useState(null)
   // const token = useSelector((state) => state.user.token)
   const token = localStorage.getItem('token')
@@ -53,7 +58,7 @@ const RideCard = ({ ride }) => {
         <div className='flex justify-around mb-5'>
           <div className='flex items-center gap-2'>
             <img src={dateicon} alt='Date Icon' className='w-9' />
-            <span>{ride.date}</span>
+            <span>{formatDate(ride.date)}</span>
           </div>
           <div className='flex items-center gap-2'>
             <img src={timeicon} alt='Time Icon' className='w-9' />
