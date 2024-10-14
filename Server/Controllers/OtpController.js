@@ -309,6 +309,7 @@ const acceptmail = async (req, res) => {
     await mailSender(user_email, title, text);
     await RequestModel.findOneAndUpdate({ ride_id }, { status: "accept" });
     await DriverRideModel.deleteOne({ ride_id });
+    await RequestModel.deleteOne({ride_id});
 
     res
       .status(200)
