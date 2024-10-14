@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const RandomModel = require("../Models/RandomModel");
 
 const newdriver = async(req,res) => {
-    const {driver_name, driver_email,driver_password,driver_phone, driver_age, government_id, vehicle_number,profile_photo,otp} = req.body;
+    const {driver_name, driver_email,driver_password,driver_phone, driver_age, government_id, vehicle_number,otp} = req.body;
     try{
         
         const response = await RandomModel.find().sort({createdAt:-1}).limit(1);
@@ -41,7 +41,7 @@ const newdriver = async(req,res) => {
               driver_age,
               government_id,
               vehicle_number,
-              profile_photo,
+            //   profile_photo,
               otp
        })
          res.status(200).json({

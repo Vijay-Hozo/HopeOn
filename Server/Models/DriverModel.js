@@ -32,7 +32,7 @@ const DriverSchema = new mongoose.Schema(
         },
         profile_photo : {
             type:String,
-            required:true
+            // required:true
         },
         otp : {
             type:String,
