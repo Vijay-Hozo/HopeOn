@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React ,{ useState, useEffect } from "react";
 import Title from "../assets/Title";
 import Button from "../assets/Button";
 import axios from "../Helpers/axios-config";
@@ -114,7 +114,7 @@ const Login = () => {
   return (
     <div className="min-h-screen ">
       <Header />
-      <div className="flex flex-col md:flex-row items-center justify-around w-full p-10 mr-20">
+      <div className="flex flex-col md:flex-row items-center justify-around w-full p-10">
         <div className="w-1/2 flex justify-center">
           <img
             src={loginimage}
@@ -122,7 +122,7 @@ const Login = () => {
             className="w-full h-auto max-w-lg md:max-w-[500px] md:h-[600px] object-cover hidden md:block"
           />
         </div>
-        <div className="flex flex-col items-center justify-center text-blue-950 text-lg py-4 h-[680px] bg-white font-semibold bg-gradient-to-b from-background-primary to-background-secondary">
+        <div className="flex flex-col  items-center  justify-center text-blue-950 text-lg py-4 h-[680px] bg-white font-semibold ">
           <div className="flex items-center gap-2 mb-4">
             <h1 className="text-3xl">User For</h1>
             <Title />
@@ -155,7 +155,7 @@ const Login = () => {
             </div>
 
             <div className="flex flex-col items-center">
-              <h1 className="text-center my-4">or</h1>
+              <h1 className="text-center">or</h1>
               {/* <button
                 type="button"
                 className="text-white bg-[#043e9a] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
@@ -176,7 +176,7 @@ const Login = () => {
                 Sign in with Google
               </button> */}
             </div>
-            <div className="flex items-center gap-3 mt-5">
+            <div className="flex items-center gap-3">
               <span className="text-2xl">New to?</span>
               <Title />
               <span className="text-white">
