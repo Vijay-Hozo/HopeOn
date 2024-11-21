@@ -93,42 +93,42 @@ const UserRegister = () => {
           <div className="flex flex-col gap-4 w-full md:w-3/4 text-center items-center">
             <input
               type="text"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black"
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <input
               type="email"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="number"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black "
               placeholder="Secret Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
             <input
               type="number"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black "
               placeholder="Age"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
             <input
               type="text"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black"
               placeholder="Government Id"
               value={governmentid}
               onChange={(e) => setgovernmentid(e.target.value)}
             />
             <input
               type="text"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black"
               placeholder="Vehicle Number"
               value={vehicle}
               onChange={(e) => setVehicle(e.target.value)}
@@ -140,7 +140,7 @@ const UserRegister = () => {
             /> */} 
             <input
               type="password"
-              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black rounded-md"
+              className="w-[350px] border-b-2 border-gray-400 focus:outline-none py-2 px-3 focus:border-black"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
