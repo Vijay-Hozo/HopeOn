@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect } from "react";
+import { useState } from "react";
 import Title from "../assets/Title";
 import Button from "../assets/Button";
 import axios from "../Helpers/axios-config";
@@ -112,9 +112,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen ">
+    <div className="h-dvh overflow-x-hidden ">
       <Header />
-      <div className="flex flex-col md:flex-row items-center justify-around w-full p-10">
+      <div className="flex flex-col md:flex-row items-center justify-around w-full ">
         <div className="w-1/2 flex justify-center">
           <img
             src={loginimage}
@@ -122,24 +122,23 @@ const Login = () => {
             className="w-full h-auto max-w-lg md:max-w-[500px] md:h-[600px] object-cover hidden md:block"
           />
         </div>
-        <div className="flex flex-col  items-center  justify-center text-blue-950 text-lg py-4 h-[680px] bg-white font-semibold ">
+        <div className="flex flex-col  items-center rounded-xl justify-center text-blue-950 text-lg py-4 p-4  font-semibold ">
           <div className="flex items-center gap-2 mb-4">
             <h1 className="text-3xl">User For</h1>
             <Title />
           </div>
 
-          <form onSubmit={handlelogin} className="gap-4 my-4">
+          <form onSubmit={handlelogin} className="gap-4 my-4 ">
             <div className="flex flex-col">
               <input
                 type="email"
-                placeholder="Email"
-                className="border-b-2 border-gray-400 focus:outline-none py-2 focus:border-black"
+                placeholder="Enter Email"
+                className="border-b-2 border-gray-400 bg-slate-50 focus:outline-none py-2 focus:border-black"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="flex flex-col mt-6">
-              {/* <label>Password</label> */}
               <PasswordInput
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Button from "../assets/Button";
 import Signupimage from "../assets/Image/Sign up-rafiki.svg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "../Redux/userSlice";
-import Header from "../Components/Header";
+import Header from "./Header";
 
 const UserRegister = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,42 +14,23 @@ const UserRegister = () => {
   const [phone, setPhone] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [otp, setOtp] = useState("");
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/register`,
-        {
-          user_name: name,
-          user_email: email,
-          user_password: password,
-          user_phone: phone,
-          user_age: age,
-          user_gender: gender,
-          otp: otp,
-        }
-      );
-      dispatch(login(res.data.user));
-      localStorage.setItem("token", res.data.token);
-      toast.success("User registered successfully!");
-      navigate("/userlogin");
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Registration failed");
-    }
-  };
 
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+       await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/sendotp`,
         {
           user_email: email,
+          user_name: name,
+          user_phone: phone,
+          user_age: age,
+          user_gender : gender,
+          user_password: password,
         }
       );
       toast.success("OTP sent successfully! Check your email");
+      navigate("/emailverification", { state: { email } });
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to send OTP");
     }
@@ -73,7 +51,6 @@ const UserRegister = () => {
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6">
           <form
             className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg text-blue-950 font-semibold"
-            onSubmit={handleRegister}
           >
             <h2 className="text-3xl font-bold text-center text-blue-950 mb-6">
               Register
@@ -146,26 +123,10 @@ const UserRegister = () => {
                 required
               />
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="otp"
-              >
-                OTP
-              </label>
-              <input
-                type="text"
-                id="otp"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-4 flex justify-between">
+            
+              
+            <div className="mb-4 flex justify-center items-center">
               <Button onClick={handleVerify}>Verify Email</Button>
-              <Button type="submit">Register</Button>
             </div>
             <div className="text-center mt-4">
               <span className="text-gray-700">Already a member?</span>

@@ -13,7 +13,6 @@ const newuser = async (req, res) => {
     user_age,
     user_gender,
     profile,
-    otp,
   } = req.body;
 
   try {
