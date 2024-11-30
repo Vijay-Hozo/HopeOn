@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import landing from "../assets/Image/landing.png";
 import Title from "../assets/Title";
 import Signup from "../assets/Image/Signup.svg";
@@ -18,7 +18,7 @@ const Landingpage = () => {
         <div className="flex items-center gap-6 text-xl font-semibold text-blue-950">
           <>
             <Link to="/userlogin" className="ml-4 md:ml-10 ">
-              <button className="bg-blue-600 rounded-md p-2 text-white">
+              <button className="bg-blue-600 md:text-xl rounded-md p-2 text-white">
                 User Login
               </button>
             </Link>
@@ -42,7 +42,7 @@ const Landingpage = () => {
           own community
         </h1>
       </div>
-      <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly items-center gap-10 px-4">
+      <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly items-center px-4">
         <div className="w-full lg:w-1/2">
           <img
             src={landing}
@@ -51,7 +51,7 @@ const Landingpage = () => {
           />
         </div>
         <div className="w-full lg:w-1/2 flex items-center justify-center text-center">
-          <h1 className="font-semibold text-lg md:text-xl lg:text-2xl xl:text-3xl text-blue-950">
+          <h1 className="font-semibold text-lg md:text-xl lg:text-xl xl:text-2xl text-black">
             HopOn is a ride-sharing platform designed to connect riders with
             drivers. The platform simplifies transportation by allowing users to
             conveniently book rides while drivers can earn money by offering

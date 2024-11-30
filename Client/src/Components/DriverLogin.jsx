@@ -96,19 +96,18 @@ const DriverLogin = () => {
     }
   };
 
-  const handleReset = (e) => {
+  const handleReset = async (e) => {
     e.preventDefault();
-    try{
-      axios.post(`${import.meta.env.VITE_SERVER_URL}/driverpassword`,{
+    try {
+      await axios.post(`${import.meta.env.VITE_SERVER_URL}/driverpassword`, {
         driver_email: email,
-      })
+      });
       toast.success("OTP sent successfully! Check your email");
-      navigate("/resetpassword",{state: {email}});
-    }
-    catch(err){
+      navigate("/driverpasswordreset", { state: { email } });
+    } catch (err) {
       toast.error(err.response?.data?.message || "Failed to send OTP");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen">
@@ -146,7 +145,9 @@ const DriverLogin = () => {
             </div>
 
             <div className="text-blue-900">
-              <Link to="/forgotpassword" onClick={handleReset}>Forgot Password?</Link>
+              <Link to="/driverpasswordreset" onClick={handleReset}>
+                Forgot Password?
+              </Link>
             </div>
 
             <div className="mt-4 flex items-center justify-center">
@@ -179,7 +180,12 @@ const DriverLogin = () => {
               <span className="text-2xl">New to?</span>
               <Title />
               <span className="text-white">
-                <Link to="/driverregister"> <button className="p-2 bg-blue-600 rounded-md">Register</button> </Link>
+                <Link to="/driverregister">
+                  {" "}
+                  <button className="p-2 bg-blue-600 rounded-md">
+                    Register
+                  </button>{" "}
+                </Link>
               </span>
             </div>
           </form>

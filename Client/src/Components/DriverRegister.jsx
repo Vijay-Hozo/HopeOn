@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../assets/Button";
 import Signupimage from "../assets/Image/driversign.svg";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { driverlogin } from "../Redux/driverSlice";
 import DriverHeader from "../Components/DriverHeader";
 
 const UserRegister = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -19,49 +16,25 @@ const UserRegister = () => {
   const [age, setAge] = useState("");
   const [governmentid, setgovernmentid] = useState("");
   const [vehicle, setVehicle] = useState("");
-  // const [profilePhoto, setProfilePhoto] = useState("");
-  const [otp, setOtp] = useState("");
-
-  const handleregister = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/registerdriver`,
-        {
-          driver_name: name,
-          driver_email: email,
-          driver_password: password,
-          driver_phone: phone,
-          driver_age: age,
-          government_id: governmentid,
-          vehicle_number: vehicle,
-          // profile_photo: profilePhoto,
-          otp: otp,
-        }
-        
-      );
-      console.log(otp);
-      toast.success("Driver registered");
-      dispatch(driverlogin(res.data.drivertoken));
-      localStorage.setItem("drivertoken", res.data.drivertoken);
-      navigate("/driverlogin");
-    } catch (err) {
-      toast.error(err.response.data.message);
-    }
-  };
 
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/driverotp`,
         {
           driver_email: email,
+          driver_name: name,
+          driver_phone: phone,
+          driver_age: age,
+          driver_governmentid : governmentid,
+          driver_vehicle: vehicle,
+          driver_password: password,
         }
         
       );
-      console.log(driver_email);
       toast.success("OTP sent successfully! Check your email");
+      navigate("/driveremailverification", { state: { email } });
     } catch (err) {
       toast.error(err.response.data.message);
     }
@@ -81,7 +54,6 @@ const UserRegister = () => {
 
         <form
           className="flex flex-col items-center text-xl gap-4 max-h-full w-full md:w-1/2 text-blue-950 py-5 px-4"
-          onSubmit={handleregister}
         >
           <div className="text-center mb-4">
             <span className="text-3xl font-bold text-yellow-400">
@@ -145,32 +117,11 @@ const UserRegister = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-             <div className="mb-4 flex items-center gap-6">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="otp"
-              >
-                OTP
-              </label>
-              <input
-                type="text"
-                id="otp"
-                className="p-3 w-full border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-              />
-            </div>
+             
           </div>
-          <div className="mt-4 gap-10 flex justify-between">
+          <div className="mt-4 gap-10 flex justify-center">
           <Button onClick={handleVerify}>Verify Email</Button>
-            <Button
-              type="submit"
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md"
-            >
-              Register
-            </Button>
+            
           </div>
           <div className="text-center ">
             {/* <h1 className="text-white mb-2">or</h1>

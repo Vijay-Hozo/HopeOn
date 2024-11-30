@@ -5,30 +5,30 @@ const DriverSchema = new mongoose.Schema(
     {
         driver_name : {
             type : String,
-            required : true
+            // required : true
         },
         driver_email : {
             type:String,
-            required:true
+            // required:true
         },
         driver_password:{
             type:String,
-            required:true
+            // required:true
         },
         driver_phone:{
             type:Number,
-            required:true
+            // required:true
         },
         driver_age : {
             type:Number,
-            required:true
+            // required:true
         },
         government_id:{
             type:String,
         },
         vehicle_number:{
             type:String,
-            required:true
+            // required:true
         },
         profile_photo : {
             type:String,
@@ -36,7 +36,7 @@ const DriverSchema = new mongoose.Schema(
         },
         otp : {
             type:String,
-            required:true 
+            // required:true 
         }
     }
 )

@@ -2,7 +2,7 @@ const otpGenerator = require("otp-generator");
 const RandomModel = require("../Models/RandomModel");
 const UserModel = require("../Models/UserModel");
 const ResetModel = require("../Models/ResetPasswordModel");
-const mailSender = require("../Utils/MailSender");
+const usermail = require("../Utils/MailSender");
 const mailsender = require("../Utils/driverMail");
 const RequestModel = require("../Models/RequestModel");
 const DriverRideModel = require("../Models/DriverRideModel");
@@ -10,15 +10,23 @@ const DriverModel = require("../Models/DriverModel");
 
 const sendotp = async (req, res) => {
   try {
-    const { user_email } = req.body;
+    const { user_email, user_age, user_gender, user_name, user_password, user_phone } = req.body;
     const user = await UserModel.findOne({ user_email });
-
     if (user) {
-      return res.status(404).json({
+      return res.status(400).json({
         status: "failure",
         message: "User is already registered",
       });
     }
+
+    const newuser = new UserModel({
+      user_email,
+      user_name,
+      user_password,
+      user_phone,
+      user_age,
+      user_gender,
+    });
 
     let otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
@@ -27,46 +35,35 @@ const sendotp = async (req, res) => {
     });
 
     let result = await RandomModel.findOne({ otp });
-
     while (result) {
       otp = otpGenerator.generate(6, {
         upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false,
       });
       result = await RandomModel.findOne({ otp });
     }
 
     const otppayload = { user_email, otp };
-    const otpbody = await RandomModel.create(otppayload);
+    await RandomModel.create(otppayload);
 
     const emailBody = `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-          <h2 style="color: #1a73e8;">Welcome to HopOn!</h2>
-          <p>Dear User,</p>
-      
-          <p>We are excited to have you join our community. To complete your registration, please use the OTP below to verify your email address:</p>
-      
-          <p style="font-size: 20px; color: #1a73e8;"><strong>${otp}</strong></p>
-      
-          <p>This OTP is valid for the next 10 minutes. Please enter it in the required field to complete your verification process.</p>
-      
-          <p>If you did not initiate this request, please ignore this email or contact our support team immediately.</p>
-      
-          <p>Thank you for choosing HopOn. We look forward to providing you with the best ride-sharing experience.</p>
-      
-          <p style="font-weight: bold;">Best regards,<br>HopOn Team</p>
-      
-          <hr style="border: none; border-top: 1px solid #ccc;" />
-      
-          <p style="font-size: 12px; color: #777;">This email was sent to you by HopOn. If you did not sign up for this service, please disregard this email.</p>
-        </div>
-      `;
-
-    await mailSender(user_email, "Your OTP Code", emailBody);
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2 style="color: #1a73e8;">Welcome to HopOn!</h2>
+        <p>Dear ${user_name},</p>
+        <p>To complete your registration, please use the OTP below:</p>
+        <p style="font-size: 20px; color: #1a73e8;"><strong>${otp}</strong></p>
+        <p>This OTP is valid for 10 minutes.</p>
+        <p>Thank you for choosing HopOn.</p>
+        <p style="font-weight: bold;">Best regards,<br>HopOn Team</p>
+      </div>
+    `;
+    await usermail(user_email, "Your OTP Code", emailBody);
+    await newuser.save();
 
     res.status(200).json({
       status: "success",
       message: "OTP sent successfully",
-      otpbody,
     });
   } catch (err) {
     res.status(500).json({
@@ -77,8 +74,55 @@ const sendotp = async (req, res) => {
   }
 };
 
+const verifyotp = async (req, res) => {
+  const{user_email, otp} = req.body;
+  try {
+    if (!user_email || !otp) {
+      return res.status(400).json({
+        status: "failure",
+        message: "Please enter the OTP",
+      });
+    }
+
+    const response = await RandomModel.find()
+      .sort({ createdAt: -1 }).limit(1)
+
+    if (response.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "The OTP is not valid",
+      });
+    } else if (otp !== response[0].otp) {
+      return res.status(400).json({
+        success: false,
+        message: "The OTP is not valid",
+      });
+    }
+    const user = await UserModel.findOne({ user_email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    await user.save();
+    res.status(200).json({
+      status: "success",
+      message: "OTP verified successfully",
+    });
+  }
+  catch (err) {
+    res.status(500).json({
+      status: "failure",
+      message: "Unable to verify OTP",
+      error: err.message,
+    });
+  }
+} 
+
 const driververify = async (req, res) => {
-  const { driver_email } = req.body;
+  const { driver_email, driver_age, driver_name, driver_phone, driver_password, driver_governmentid, driver_vehicle } = req.body;
   try {
     if (!driver_email) {
       return res.status(400).json({
@@ -86,6 +130,16 @@ const driververify = async (req, res) => {
         message: "Please provide driver email",
       });
     }
+
+    const newdriver = new DriverModel({
+      driver_email,
+      driver_name,
+      driver_phone,
+      driver_age,
+      driver_password,
+      driver_governmentid,
+      driver_vehicle,
+    })
   
     let otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
@@ -124,6 +178,7 @@ const driververify = async (req, res) => {
         </div>
       `;
     await mailsender(driver_email, "Your OTP Code", emailBody);
+    await newdriver.save();
     res.status(200).json({
       status: "success",
       message: "OTP sent successfully",
@@ -178,7 +233,7 @@ const passwordotp = async (req, res) => {
   </div>
 `;
 
-    await mailSender(user_email, "Your OTP Code", emailBody);
+    await usermail(user_email, "Your OTP Code", emailBody);
 
     res.status(200).json({
       status: "success",
@@ -193,6 +248,53 @@ const passwordotp = async (req, res) => {
     });
   }
 };
+
+const driverotpverify = async (req, res) => {
+  const { driver_email, otp } = req.body;
+  try {
+    if (!driver_email || !otp) {
+      return res.status(400).json({
+        status: "failure",
+        message: "Please enter the OTP",
+      });
+    }
+
+    const response = await RandomModel.find()
+      .sort({ createdAt: -1 })
+      .limit(1);
+
+    if (response.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "The OTP is not valid",
+      });
+    } else if (otp !== response[0].otp) {
+      return res.status(400).json({
+        success: false,
+        message: "The OTP is not valid",
+      });
+    }
+    const driver = await DriverModel.findOne({ driver_email });
+
+    if (!driver) {
+      return res.status(404).json({
+        success: false,
+        message: "Driver not found",
+      });
+    }
+    await driver.save();
+    res.status(200).json({
+      status: "success",
+      message: "OTP verified successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "failure",
+      message: "Unable to verify OTP",
+      error: err.message,
+    });
+  }
+}
 
 const driverpasswordotp = async (req, res) => {
   const { driver_email } = req.body;
@@ -306,7 +408,7 @@ const acceptmail = async (req, res) => {
     <br><strong>HopOn Team</strong>
   `;
 
-    await mailSender(user_email, title, text);
+    await usermail(user_email, title, text);
     await RequestModel.findOneAndUpdate({ ride_id }, { status: "accept" });
     await DriverRideModel.deleteOne({ ride_id });
     await RequestModel.deleteOne({ride_id});
@@ -323,4 +425,4 @@ const acceptmail = async (req, res) => {
   }
 };
 
-module.exports = { sendotp, passwordotp, acceptmail, driververify, driverpasswordotp };
+module.exports = { sendotp, passwordotp, acceptmail, driververify, driverpasswordotp,verifyotp, driverotpverify };
