@@ -1,4 +1,10 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import ReactGA from "react-ga";
+import { login } from "./Redux/userSlice";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Login from "./Components/Login";
 import UserRegister from "./Components/UserRegister";
 import DriverRegister from "./Components/DriverRegister";
@@ -11,16 +17,14 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import DriverProfile from "./Components/DriverProfile";
 import Landingpage from "./Components/Landingpage";
 import DriverProtectedRoute from "./Components/DriverProtectedRoute";
-import { login } from "./Redux/userSlice";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Footer from "./Components/Footer";
 import ResetPassword from "./Components/ResetPassword";
 import Emailverification from "./Components/EmailVerificiation";
 import Emailverification2 from "./Components/EmailVerification2";
 import DriverResetPassword from "./Components/DriverPasswordReset";
+
+const TRACKING_ID = "G-TQ31FSLHBP";
+ReactGA.initialize(TRACKING_ID);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,12 +35,23 @@ const App = () => {
       dispatch(login(token));
     }
   }, [dispatch]);
+
+  const TrackPageViews = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+      ReactGA.pageview(location.pathname + location.search);
+    }, [location]);
+
+    return null;
+  };
+
   return (
     <>
       <ToastContainer />
       <BrowserRouter>
+        <TrackPageViews /> {/* Tracks page views */}
         <Routes>
-
           <Route path="/" element={<Landingpage />} />
           <Route path="/userregister" element={<UserRegister />} />
           <Route path="/emailverification" element={<Emailverification />} />
@@ -58,8 +73,6 @@ const App = () => {
             <Route path="/driverprofile" element={<DriverProfile />} />
             <Route path="/request" element={<Request />} />
           </Route>
-
-          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </>
