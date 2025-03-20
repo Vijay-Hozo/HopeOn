@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import Title from "../assets/Title";
 import Button from "../assets/Button";

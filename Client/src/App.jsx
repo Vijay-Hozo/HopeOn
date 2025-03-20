@@ -50,7 +50,7 @@ const App = () => {
     <>
       <ToastContainer />
       <BrowserRouter>
-        <TrackPageViews /> {/* Tracks page views */}
+        <TrackPageViews /> 
         <Routes>
           <Route path="/" element={<Landingpage />} />
           <Route path="/userregister" element={<UserRegister />} />
