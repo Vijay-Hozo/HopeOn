@@ -2,7 +2,7 @@
 
 USERROUTE
 
-        USERROUTE  -> POST(LOGINUSER,REGISTERUSER)  /loginuser, /registeruser
+    USERROUTE  -> POST(LOGINUSER,REGISTERUSER)  /loginuser, /registeruser
 
 	RIDEROUTE  -> POST(ADDSERVICE),  GET(GETSERVICE)  /addservice , /getservice
 
